@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 
 public class Main extends Application {
@@ -30,23 +32,21 @@ public class Main extends Application {
 			primaryStage.setMaximized(true);
 			Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 			primaryStage.setScene(scene);
-			
+			primaryStage.setTitle("Food Query and Meal Analysis");
 			Button loadFood = new Button("Load Foods");
 			Button saveFood = new Button("Save Foods");
 			Button createMeal = new Button("Create Meal");
 			Button analyzeMeal = new Button("Analyze Meal");
 			Button query = new Button("Query");
 			Button addMealButton = new Button("Add");
-			loadFood.setStyle("-fx-font: 24 arial;");
-			saveFood.setStyle("-fx-font: 24 arial;");
-			createMeal.setStyle("-fx-font: 24 arial;");
-			analyzeMeal.setStyle("-fx-font: 24 arial;");
-			query.setStyle("-fx-font: 24 arial;");
-			loadFood.setPrefWidth(180);
-			saveFood.setPrefWidth(180);
-			createMeal.setPrefWidth(180);
-			analyzeMeal.setPrefWidth(180);
-			query.setPrefWidth(180);
+			GUI.initButton(loadFood);
+			GUI.initButton(saveFood);
+			GUI.initButton(createMeal);
+			GUI.initButton(analyzeMeal);
+			GUI.initButton(query);
+			GUI.initButton(addMealButton);
+			addMealButton.setPrefWidth(45);
+			addMealButton.setFont(Font.font("arial", 14));
 			HBox bottomBox = new HBox();
 			bottomBox.setSpacing((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth()-900)/6);
 			double oof = primaryStage.getWidth();
@@ -55,11 +55,11 @@ public class Main extends Application {
 			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, analyzeMeal, query);
 			//bottomGrid.getChildren().addAll(loadFood, saveFood, createMeal, analyzeMeal, query);
 			root.setBottom(bottomBox);
-			HBox.setMargin(saveFood, new Insets(15));
-			HBox.setMargin(loadFood, new Insets(15));
-			HBox.setMargin(createMeal, new Insets(15));
-			HBox.setMargin(analyzeMeal, new Insets(15));
-			HBox.setMargin(query, new Insets(15));
+			HBox.setMargin(saveFood, new Insets(14));
+			HBox.setMargin(loadFood, new Insets(14));
+			HBox.setMargin(createMeal, new Insets(14));
+			HBox.setMargin(analyzeMeal, new Insets(14));
+			HBox.setMargin(query, new Insets(14));
 			VBox foodPane = new VBox();
 			VBox rightPane = new VBox();
 			ScrollPane foodList = new ScrollPane();
