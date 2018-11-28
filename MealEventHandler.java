@@ -11,7 +11,7 @@ public class MealEventHandler {
 	    	if(Main.foodInfoScene == 1) {
 	    		Main.root.setCenter(Main.foodInfo);
 	    		Main.foodInfoScene = 0;
-	    	}else {
+	    	} else {
 	    		Main.root.setCenter(Main.loadFoodBox);
 	    		Main.foodInfoScene = 1;
 	    	}
@@ -24,7 +24,7 @@ public class MealEventHandler {
 			if(Main.foodInfoScene == 2) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
-			}else {
+			} else {
 				Main.root.setCenter(Main.analyzeMealBox);
 				Main.foodInfoScene = 2;
 			}
@@ -37,7 +37,7 @@ public class MealEventHandler {
 			if(Main.foodInfoScene == 3) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
-			}else {
+			} else {
 				Main.root.setCenter(Main.mealListAdd);
 				Main.foodInfoScene = 3;
 			}

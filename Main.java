@@ -26,27 +26,33 @@ public class Main extends Application {
 	public static VBox mealScrollList = new VBox();
 	public static TextField analyzeFoodField = new TextField();
 	public static TextField createMealField = new TextField();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			
 			primaryStage.setMaximized(true);
 			Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Food Query and Meal Analysis");
+			
 			Button loadFood = new Button("Load Foods");
 			Button saveFood = new Button("Save Foods");
 			Button createMeal = new Button("Create Meal");
 			Button analyzeMeal = new Button("Analyze Meal");
 			Button query = new Button("Query");
 			Button addMealButton = new Button("Add");
+			
 			GUI.initButton(loadFood);
 			GUI.initButton(saveFood);
 			GUI.initButton(createMeal);
 			GUI.initButton(analyzeMeal);
 			GUI.initButton(query);
 			GUI.initButton(addMealButton);
+			
 			addMealButton.setPrefWidth(45);
-			addMealButton.setFont(Font.font("arial", 14));
+			addMealButton.setFont(Font.font("Arial", 14));
+			
 			HBox bottomBox = new HBox();
 			bottomBox.setSpacing((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth()-900)/6);
 			double oof = primaryStage.getWidth();
@@ -55,23 +61,28 @@ public class Main extends Application {
 			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, analyzeMeal, query);
 			//bottomGrid.getChildren().addAll(loadFood, saveFood, createMeal, analyzeMeal, query);
 			root.setBottom(bottomBox);
+			
 			HBox.setMargin(saveFood, new Insets(14));
 			HBox.setMargin(loadFood, new Insets(14));
 			HBox.setMargin(createMeal, new Insets(14));
 			HBox.setMargin(analyzeMeal, new Insets(14));
 			HBox.setMargin(query, new Insets(14));
+			
 			VBox foodPane = new VBox();
-			VBox rightPane = new VBox();
-			ScrollPane foodList = new ScrollPane();
 			for(int i=0; i<200; i++) {
 				foodPane.getChildren().add(new Label("Test Food #" + i + " Test Food lmao"));
 			}
+			
+			ScrollPane foodList = new ScrollPane();
+			foodList.setContent(foodPane);
 			foodList.setPrefWidth(250);
+			
 			VBox mealPane = new VBox();
-			ScrollPane mealList = new ScrollPane();
 			for(int i=0; i<200; i++) {
 				mealPane.getChildren().add(new Label("Test Meal #" + i + " Test Meal lmao"));
 			}
+			
+			ScrollPane mealList = new ScrollPane();
 			mealList.setContent(mealPane);
 			mealList.setPrefWidth(250);
 			mealList.setPrefHeight(400);
@@ -79,25 +90,32 @@ public class Main extends Application {
 			Label mealInfo = new Label("Meal Info \n more MEAL info \nn\n\n MEAL INFOOOO");
 			mealInfo.setStyle("-fx-font: 40 arial;");
 			foodInfo.setStyle("-fx-font: 40 arial;");
+
+			VBox rightPane = new VBox();
 			rightPane.getChildren().add(mealList);
 			rightPane.getChildren().add(mealInfo);
+			
 			root.setRight(rightPane);
 			root.setCenter(foodInfo);
-			foodList.setContent(foodPane);
 			root.setLeft(foodList);
+			
 			TextField loadFoodField = new TextField();
 			loadFoodBox.getChildren().add(new Label("Load File:"));
 			loadFoodBox.getChildren().add(loadFoodField);
-			HBox createMealFieldBox = new HBox();
+			
 			analyzeMealBox.getChildren().add(new Label("Analyze Meal:"));
 			analyzeMealBox.getChildren().add(analyzeFoodField);
+			
+			HBox createMealFieldBox = new HBox();
 			createMealFieldBox.getChildren().add(new Label("Add Food:"));
 			createMealFieldBox.getChildren().add(createMealField);
 			createMealFieldBox.getChildren().add(addMealButton);
+			
 			mealListAdd.getChildren().add(new Label("Create Meal:"));
 			mealListAdd.getChildren().add(analyzeFoodField);
 			mealListAdd.getChildren().add(createMealFieldBox);
 			mealListAdd.getChildren().add(new Label("Current Meal"));
+			
 			mealScrollPane.setPrefHeight(450);
 			mealScrollPane.setContent(mealScrollList);
 			mealListAdd.getChildren().add(mealScrollPane);
@@ -106,7 +124,9 @@ public class Main extends Application {
 			analyzeMeal.setOnAction(MealEventHandler.analyzeMealHandler);
 			createMeal.setOnAction(MealEventHandler.createMealHandler);
 			addMealButton.setOnAction(MealEventHandler.addMealHandler);
+			
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
