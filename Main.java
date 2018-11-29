@@ -83,7 +83,7 @@ public class Main extends Application {
 			ScrollPane foodList = new ScrollPane();
 			Button temp = new Button();
 			for(int i=0; i<200; i++) {
-				temp=new Button("Test Food #" + i + " Test Food");
+				temp=new Button("Test Food #" + i + " Test Food lmao");
 				GUI.initScrollButton(temp);
 				foodPane.getChildren().add(temp);
 			}
@@ -91,7 +91,7 @@ public class Main extends Application {
 			VBox mealPane = new VBox();
 			ScrollPane mealList = new ScrollPane();
 			for(int i=0; i<200; i++) {
-				temp=new Button("Test Meal #" + i + " Test Meal");
+				temp=new Button("Test Meal #" + i + " Test Meal lmao");
 				GUI.initScrollButton(temp);
 				mealPane.getChildren().add(temp);
 			}
