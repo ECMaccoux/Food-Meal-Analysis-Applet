@@ -70,6 +70,8 @@ public class Main extends Application {
 			Label carbohydrates = new Label("Carbohydrates (Grams): ");
 			Label fiber = new Label("Fiber (Grams): ");
 			Label protein = new Label("Protein (Grams): ");
+			Label mealListLabel = new Label("Foods: ");
+
 			
 			GUI.initLabel(calories, 1);
 			GUI.initLabel(food, 1);
@@ -77,6 +79,7 @@ public class Main extends Application {
 			GUI.initLabel(carbohydrates, 1);
 			GUI.initLabel(fiber, 1);
 			GUI.initLabel(protein, 1);
+			GUI.initLabel(mealListLabel, 1);
 			
 			food.setFont(Font.font("Arial", 24));
 			mealInfoBox.getChildren().addAll(food, calories, fat, carbohydrates, fiber, protein);
@@ -89,6 +92,7 @@ public class Main extends Application {
 			
 			VBox foodPane = new VBox();
 			Button temp = new Button();
+			foodPane.getChildren().add(mealListLabel);
 			for(int i=0; i<200; i++) {
 				temp = new Button("Spagett with #" + i + " Spicness");
 				GUI.initScrollButton(temp);
