@@ -22,11 +22,11 @@ public class GUI {
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(150, 15, 15));
+		dropShadow.setColor(Color.rgb(180, 5, 5));
 		
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent e) {
-	        	button.setTextFill(Color.rgb(150, 15, 15));
+	        	button.setTextFill(Color.rgb(180, 5, 5));
 	            button.setEffect(dropShadow);
 	        }
 		});
@@ -51,11 +51,11 @@ public class GUI {
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(150, 15, 15)); 
+		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				label.setTextFill(Color.rgb(150, 15, 15));
+				label.setTextFill(Color.rgb(180, 5, 5));
 				label.setEffect(dropShadow);
 			}
 		});
@@ -77,11 +77,11 @@ public class GUI {
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(150, 15, 15)); 
+		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				label.setTextFill(Color.rgb(150, 15, 15));
+				label.setTextFill(Color.rgb(180, 5, 5));
 				label.setEffect(dropShadow);
 			}
 		});
@@ -107,7 +107,7 @@ public class GUI {
 		
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
-				button.setTextFill(Color.rgb(150, 15, 15));
+				button.setTextFill(Color.rgb(180, 5, 5));
 				button.setEffect(dropShadow);
 			}
 		});
@@ -125,7 +125,7 @@ public class GUI {
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(150, 15, 15)); 
+		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		scrollPane.setPrefWidth(250);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);

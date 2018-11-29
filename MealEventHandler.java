@@ -2,6 +2,7 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -81,12 +82,14 @@ public class MealEventHandler {
 	 * 
 	 */
 	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
+		
 		@Override
 		public void handle(ActionEvent event) {
-			if(Main.foodInfoScene == 4) {
+			if(Main.foodInfoScene == 4 && ((Button) event.getSource()).getText().equals(Main.food.getText())) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
+				Main.food.setText("Food: " + ((Button) event.getSource()).getText());
 				Main.root.setCenter(Main.mealInfoBox);
 				Main.foodInfoScene = 4;
 			}

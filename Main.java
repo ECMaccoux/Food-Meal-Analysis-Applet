@@ -31,7 +31,7 @@ public class Main extends Application {
 	public static VBox mealScrollList = new VBox();
 	public static TextField analyzeFoodField = new TextField();
 	public static TextField createMealField = new TextField();
-	public static Label food = new Label("Food: ");
+	public static Label food = new Label();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -90,7 +90,7 @@ public class Main extends Application {
 			VBox foodPane = new VBox();
 			Button temp = new Button();
 			for(int i=0; i<200; i++) {
-				temp = new Button("Test Food #" + i + " Test Food");
+				temp = new Button("Spagett with #" + i + " Spicness");
 				GUI.initScrollButton(temp);
 				foodPane.getChildren().add(temp);
 			}
