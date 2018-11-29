@@ -96,4 +96,22 @@ public class MealEventHandler {
 			event.consume();
 		}
 	};
+	
+	/**
+	 * 
+	 */
+	static EventHandler<ActionEvent> queryHandler = new EventHandler<ActionEvent>() {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			if(Main.foodInfoScene == 5) {
+				Main.root.setCenter(Main.foodInfo);
+				Main.foodInfoScene = 0;
+			}else {
+				Main.root.setCenter(Main.queryBox);
+				Main.foodInfoScene = 5;
+			}
+			event.consume();
+		}
+	};
 }

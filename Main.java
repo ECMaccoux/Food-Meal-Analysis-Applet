@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -27,6 +28,7 @@ public class Main extends Application {
 	public static HBox analyzeMealBox = new HBox();
 	public static VBox mealListAdd = new VBox();
 	public static VBox mealInfoBox = new VBox();
+	public static VBox queryBox = new VBox();
 	public static ScrollPane mealScrollPane = new ScrollPane();
 	public static VBox mealScrollList = new VBox();
 	public static TextField analyzeFoodField = new TextField();
@@ -37,8 +39,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			primaryStage.setMaximized(true);
 			Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+
+			primaryStage.setMaximized(true);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Food Query and Meal Analysis");
 			
@@ -71,7 +74,22 @@ public class Main extends Application {
 			Label fiber = new Label("Fiber (Grams): ");
 			Label protein = new Label("Protein (Grams): ");
 			Label mealListLabel = new Label("Foods: ");
-
+			Label queryLabel = new Label("Filter Query:");
+			
+			CheckBox caloriesCheckBox = new CheckBox("Filter By Calories");
+			CheckBox fatCheckBox = new CheckBox("Filter By Fat");
+			CheckBox carbohydrateCheckBox = new CheckBox("Filter By Carbohydrate");
+			CheckBox fiberCheckBox = new CheckBox("Filter By Fiber");
+			CheckBox proteinCheckBox = new CheckBox("Filter By Protein");
+			
+			GUI.initCheckBox(caloriesCheckBox);
+			GUI.initCheckBox(fatCheckBox);
+			GUI.initCheckBox(carbohydrateCheckBox);
+			GUI.initCheckBox(fiberCheckBox);
+			GUI.initCheckBox(proteinCheckBox);
+			
+			queryBox.getChildren().addAll(queryLabel, caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
+					fiberCheckBox, proteinCheckBox);
 			
 			GUI.initLabel(calories, 1);
 			GUI.initLabel(food, 1);
@@ -80,6 +98,7 @@ public class Main extends Application {
 			GUI.initLabel(fiber, 1);
 			GUI.initLabel(protein, 1);
 			GUI.initLabel(mealListLabel, 1);
+			GUI.initLabel(queryLabel, 0);
 			
 			food.setFont(Font.font("Arial", 24));
 			mealInfoBox.getChildren().addAll(food, calories, fat, carbohydrates, fiber, protein);
@@ -169,7 +188,7 @@ public class Main extends Application {
 			analyzeMeal.setOnAction(MealEventHandler.analyzeMealHandler);
 			createMeal.setOnAction(MealEventHandler.createMealHandler);
 			addMealButton.setOnAction(MealEventHandler.addMealHandler);
-			
+			query.setOnAction(MealEventHandler.queryHandler);
 			primaryStage.show();
 			
 		} catch(Exception e) {

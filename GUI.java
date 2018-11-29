@@ -2,6 +2,7 @@ package application;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -99,7 +100,7 @@ public class GUI {
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(150, 15, 15)); 
+		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		button.setTextFill(Color.BLACK);
 		button.setOnAction(MealEventHandler.scrollMealHandler);
@@ -141,6 +142,29 @@ public class GUI {
 		scrollPane.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override public void handle(MouseEvent e) {
 				scrollPane.setEffect(null);
+			}
+		});
+	}
+	public static void initCheckBox(CheckBox checkBox) {
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setRadius(5.0);
+		dropShadow.setOffsetX(3.0);
+		dropShadow.setOffsetY(3.0);
+		dropShadow.setColor(Color.rgb(180, 5, 5)); 
+		checkBox.setFont(Font.font("arial", FontWeight.BOLD, 16));
+
+		checkBox.setPrefWidth(400);
+		checkBox.setStyle("-fx-border-color:crimson; -fx-border-width:0;");
+		
+		checkBox.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent e) {
+				checkBox.setEffect(dropShadow);
+			}
+		});
+		
+		checkBox.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override public void handle(MouseEvent e) {
+				checkBox.setEffect(null);
 			}
 		});
 	}
