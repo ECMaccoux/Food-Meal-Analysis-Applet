@@ -95,7 +95,7 @@ public class GUI {
 	 * @param button
 	 */
 	public static void initScrollButton(Button button) {
-		// initialzes drop shadow
+		// initializes drop shadow
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
@@ -106,6 +106,7 @@ public class GUI {
 		button.setTextFill(Color.BLACK);
 		button.setOnAction(MealEventHandler.scrollMealHandler);
 		button.setBorder(null);
+		button.setPrefWidth(200);
 		
 		// when mouse enters the button area, change color and show dropshadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

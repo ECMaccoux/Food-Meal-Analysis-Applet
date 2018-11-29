@@ -52,8 +52,10 @@ public class Main extends Application {
 
 			// TODO: make this not fullscreen (maybe 1280x720?)
 			// creates the stage
-			primaryStage.setMaximized(true);
+			//primaryStage.setMaximized(true);
 			primaryStage.setResizable(false);
+			primaryStage.setMaxWidth(1280);
+			primaryStage.setMaxHeight(640);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Food Query and Meal Analysis");
 			
