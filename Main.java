@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -81,6 +82,13 @@ public class Main extends Application {
 			CheckBox carbohydrateCheckBox = new CheckBox("Filter By Carbohydrate");
 			CheckBox fiberCheckBox = new CheckBox("Filter By Fiber");
 			CheckBox proteinCheckBox = new CheckBox("Filter By Protein");
+			
+			RadioButton nameSort = new RadioButton("Sort By Name");
+			RadioButton caloriesSort = new RadioButton("Sort By Name");
+			RadioButton fatSort = new RadioButton("Sort By Name");
+			RadioButton carbohydrateSort = new RadioButton("Sort By Name");
+			RadioButton fiberSort = new RadioButton("Sort By Name");
+			RadioButton proteinSort = new RadioButton("Sort By Name");
 			
 			GUI.initCheckBox(caloriesCheckBox);
 			GUI.initCheckBox(fatCheckBox);
