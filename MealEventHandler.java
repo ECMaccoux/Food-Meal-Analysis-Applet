@@ -12,6 +12,13 @@ import javafx.scene.control.Label;
  */
 public class MealEventHandler {
 	
+	// intfoodInfoScene: 	0 = default
+	//						1 = load food
+	//						2 = analyze meal
+	//						3 = create meal
+	//						4 = food info
+	// 						5 = query screen
+	
 	/**
 	 * 
 	 */
