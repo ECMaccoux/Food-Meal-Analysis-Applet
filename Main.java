@@ -22,21 +22,20 @@ import javafx.scene.text.Font;
  *
  */
 public class Main extends Application {
-	// TODO: can we make these not public?
-	// TODO: can we initialize these within a method?
-	public static BorderPane root = new BorderPane();
-	public static int foodInfoScene = 0;
-	public static Label foodInfo = new Label("Select Food");
-	public static HBox loadFoodBox = new HBox();
-	public static HBox analyzeMealBox = new HBox();
-	public static VBox mealListAdd = new VBox();
-	public static VBox mealInfoBox = new VBox();
-	public static VBox queryBox = new VBox();
-	public static ScrollPane mealScrollPane = new ScrollPane();
-	public static VBox mealScrollList = new VBox();
-	public static TextField analyzeFoodField = new TextField();
-	public static TextField createMealField = new TextField();
-	public static Label food = new Label();
+	
+	public static BorderPane root;
+	public static int foodInfoScene;
+	public static Label foodInfo;
+	public static HBox loadFoodBox;
+	public static HBox analyzeMealBox;
+	public static VBox mealListAddBox;
+	public static VBox mealInfoBox;
+	public static VBox queryBox;
+	public static ScrollPane mealScrollPane;
+	public static VBox mealScrollList;
+	public static TextField analyzeFoodField;
+	public static TextField createMealField;
+	public static Label food;
 
 	/**
 	 * Starts GUI
@@ -47,12 +46,13 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			// sets scene to fullscreen
+			// initializes public static fields
+			initialize();
+			
+			// creates the scene
 			Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 
-			// TODO: make this not fullscreen (maybe 1280x720?)
 			// creates the stage
-			//primaryStage.setMaximized(true);
 			primaryStage.setResizable(false);
 			primaryStage.setMaxWidth(1280);
 			primaryStage.setMaxHeight(640);
@@ -82,7 +82,7 @@ public class Main extends Application {
 			
 			// initializes button box at bottom of screen
 			HBox bottomBox = new HBox();
-			bottomBox.setSpacing((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 900)/6);
+			//bottomBox.setSpacing((java.awt.Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 900)/6);
 			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, analyzeMeal, query);
 			
 			// creates all labels
@@ -91,7 +91,8 @@ public class Main extends Application {
 			Label carbohydrates = new Label("Carbohydrates (Grams): ");
 			Label fiber = new Label("Fiber (Grams): ");
 			Label protein = new Label("Protein (Grams): ");
-			Label mealListLabel = new Label("Foods: ");
+			Label foodListTitle = new Label("Foods: ");
+			Label mealListTitle = new Label("Meals: ");
 			Label queryLabel = new Label("Filter Query:");
 			Label loadFileLabel = new Label("Load File");
 			Label addFoodLabel = new Label("Add New Food");
@@ -99,7 +100,6 @@ public class Main extends Application {
 			Label createMealLabel = new Label("Create New Meal");
 			Label currentMealLabel = new Label("Current Meal");
 			
-			// TODO: separate these into other classes (potentially in GUI?)
 			// creates all check boxes
 			CheckBox caloriesCheckBox = new CheckBox("Filter By Calories");
 			CheckBox fatCheckBox = new CheckBox("Filter By Fat");
@@ -125,11 +125,6 @@ public class Main extends Application {
 			GUI.initCheckBox(fiberCheckBox);
 			GUI.initCheckBox(proteinCheckBox);
 			
-			// TODO: put this somewhere else
-			// adds all checkboxes into a vBox (queryBox)
-			queryBox.getChildren().addAll(queryLabel, caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
-					fiberCheckBox, proteinCheckBox);
-			
 			// initializes labels
 			GUI.initLabel(calories, 1);
 			GUI.initLabel(food, 1);
@@ -137,7 +132,8 @@ public class Main extends Application {
 			GUI.initLabel(carbohydrates, 1);
 			GUI.initLabel(fiber, 1);
 			GUI.initLabel(protein, 1);
-			GUI.initLabel(mealListLabel, 1);
+			GUI.initLabel(foodListTitle, 1);
+			GUI.initLabel(mealListTitle, 1);
 			GUI.initLabel(queryLabel, 0);
 			GUI.initLabel(foodInfo, 0);
 			GUI.initLabel(loadFileLabel, 0);
@@ -152,9 +148,8 @@ public class Main extends Application {
 			foodInfo.setPrefWidth(500);
 			foodInfo.setAlignment(Pos.TOP_CENTER);
 			foodInfo.setStyle("-fx-font: 40 arial;");
-			
-			// TODO: This needs to be adjusted
-			// sets spacing in button box
+		
+			// sets spacing within button box
 			HBox.setMargin(saveFood, new Insets(14));
 			HBox.setMargin(loadFood, new Insets(14));
 			HBox.setMargin(createMeal, new Insets(14));
@@ -164,55 +159,58 @@ public class Main extends Application {
 			
 			// TODO: figure out file parsing
 			// initializes the food list
-			VBox foodPane = new VBox();
+			VBox foodList = new VBox();
 			Button temp = new Button();
-			foodPane.getChildren().add(mealListLabel);
+			//foodPane.getChildren().add(foodListTitle);
 			for(int i=0; i<200; i++) {
 				// TODO: This is going to be changed
 				temp = new Button("Spagett with #" + i + " Spicness");
 				GUI.initScrollButton(temp);
-				foodPane.getChildren().add(temp);
+				foodList.getChildren().add(temp);
 			}
 			
 			// creates a scrolling pane that contains the list of food
-			// TODO: make the ScrollPane object called foodPane instead of foodList
-			ScrollPane foodList = new ScrollPane();
-			foodList.setContent(foodPane);
+			ScrollPane foodPane = new ScrollPane();
+			foodPane.setContent(foodList);
 			
 			// TODO: figure out file parsing
 			// initializes the meal list
-			VBox mealPane = new VBox();
+			VBox mealList = new VBox();
 			for(int i=0; i<200; i++) {
 				// TODO: This is going to be changed
 				temp = new Button("Test Meal #" + i + " Test Meal");
 				GUI.initScrollButton(temp);
-				mealPane.getChildren().add(temp);
+				mealList.getChildren().add(temp);
 			}
 			
 			// creates a scrolling pane that contains the list of meals
-			// TODO: make the ScrollPAne object called mealPane instead of mealList
-			ScrollPane mealList = new ScrollPane();
-			mealList.setContent(mealPane);
-			mealList.setPrefHeight(400);
+			ScrollPane mealPane = new ScrollPane();
+			mealPane.setContent(mealList);
+			mealPane.setPrefHeight(250);
 			
 			// initializes the scroll panes
-			GUI.initScroll(mealList);
-			GUI.initScroll(foodList);
+			GUI.initScroll(mealPane);
+			GUI.initScroll(foodPane);
 			
 			// TODO: put relevant information in the meal info pane
 			// initializes meal info pane
 			Label mealInfo = new Label("Meal Info \n more MEAL info \nn\n\n MEAL INFOOOO");
 			mealInfo.setStyle("-fx-font: 40 arial;");
 			
-			// initializes pane (contains mealList and mealInfo)
+			// initializes left pane (contains foodListTitle and foodList)
+			VBox leftPane = new VBox();
+			leftPane.setPrefWidth(215);
+			leftPane.getChildren().addAll(foodListTitle, foodPane);
+			
+			// initializes right pane (contains mealList and mealInfo)
 			VBox rightPane = new VBox();
-			rightPane.getChildren().add(mealList);
-			rightPane.getChildren().add(mealInfo);
+			rightPane.setPrefWidth(215);
+			rightPane.getChildren().addAll(mealListTitle, mealPane, mealInfo);
 			
 			// putting all four of our panes into root 
-			root.setRight(rightPane);
+			root.setLeft(leftPane);
 			root.setCenter(foodInfo);
-			root.setLeft(foodList);
+			root.setRight(rightPane);
 			root.setBottom(bottomBox);
 			
 			// adds label/field to LoadFoodBox
@@ -225,12 +223,16 @@ public class Main extends Application {
 			createMealFieldBox.getChildren().addAll(addFoodLabel, createMealField, addMealButton);
 			
 			// adds label/field/box/label to MealListAdd (create meal screen)
-			mealListAdd.getChildren().addAll(createMealLabel, analyzeFoodField, createMealFieldBox, currentMealLabel);
+			mealListAddBox.getChildren().addAll(createMealLabel, analyzeFoodField, createMealFieldBox, currentMealLabel);
+			
+			// adds necessary checkboxes to queryBox
+			queryBox.getChildren().addAll(queryLabel, caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
+					fiberCheckBox, proteinCheckBox);
 			
 			// initializes list of items in meal, adds it to MealListAdd
 			mealScrollPane.setPrefHeight(450);
 			mealScrollPane.setContent(mealScrollList);
-			mealListAdd.getChildren().add(mealScrollPane);
+			mealListAddBox.getChildren().add(mealScrollPane);
 			
 			// sets actions for each buttons
 			loadFood.setOnAction(MealEventHandler.foodInfoHandler);
@@ -245,6 +247,25 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void initialize() {
+		root = new BorderPane();
+		foodInfoScene = 0;
+		foodInfo = new Label("Select Food");
+		loadFoodBox = new HBox();
+		analyzeMealBox = new HBox();
+		mealListAddBox = new VBox();
+		mealInfoBox = new VBox();
+		queryBox = new VBox();
+		mealScrollPane = new ScrollPane();
+		mealScrollList = new VBox();
+		analyzeFoodField = new TextField();
+		createMealField = new TextField();
+		food = new Label();
 	}
 	
 	/**

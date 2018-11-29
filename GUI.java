@@ -23,7 +23,7 @@ public class GUI {
 		
 		// sets font, width, and text color of button
 		button.setFont(Font.font("arial", FontWeight.BOLD, 24));
-		button.setPrefWidth(185);
+		button.setPrefWidth(500);
 		button.setTextFill(Color.BLACK);
 		
 		// sets drop shadow of button
@@ -65,7 +65,7 @@ public class GUI {
 			label.setPrefWidth(150);
 		}
 			
-		// initialzing drop shadow
+		// Initializing drop shadow
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setRadius(5.0);
 		dropShadow.setOffsetX(3.0);
@@ -141,7 +141,7 @@ public class GUI {
 		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		// sets width, policies, and style of scroll pane
-		scrollPane.setPrefWidth(250);
+		scrollPane.setPrefWidth(215);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		scrollPane.setStyle("-fx-border-color:crimson; -fx-border-width:0;");

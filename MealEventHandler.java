@@ -63,7 +63,7 @@ public class MealEventHandler {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
-				Main.root.setCenter(Main.mealListAdd);
+				Main.root.setCenter(Main.mealListAddBox);
 				Main.foodInfoScene = 3;
 			}
 			event.consume();
