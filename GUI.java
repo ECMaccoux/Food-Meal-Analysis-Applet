@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.DropShadow;
@@ -13,6 +14,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class GUI {
+	public static DropShadow dropShadow = new DropShadow();
+	public static Color color = Color.rgb(197, 5, 12);
+	/**
+	 *  sets drop shadow of button
+	 */
+	public static void initGUI() {
+		dropShadow.setRadius(4.5);
+		dropShadow.setOffsetX(2);
+		dropShadow.setOffsetY(2);
+		dropShadow.setColor(color);
+	}
 	
 	/**
 	 * Initializes button
@@ -25,25 +37,19 @@ public class GUI {
 		button.setFont(Font.font("arial", FontWeight.BOLD, 24));
 		button.setPrefWidth(500);
 		button.setTextFill(Color.BLACK);
-		
-		// sets drop shadow of button
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(180, 5, 5));
-		
+				
 		// when mouse enters button area, changes color of text and displays drop shadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent e) {
-	        	button.setTextFill(Color.rgb(180, 5, 5));
+	        	button.setTextFill(color);
 	            button.setEffect(dropShadow);
 	        }
 		});
 		
 		// when mouse exits button area, resets color of text and hides drop shadow
 		button.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-	        @Override public void handle(MouseEvent e) {
+	        @Override
+	        public void handle(MouseEvent e) {
 	            button.setEffect(null);
 	        	button.setTextFill(Color.BLACK);
 	        }
@@ -64,25 +70,20 @@ public class GUI {
 		if(type==0) {
 			label.setPrefWidth(150);
 		}
-			
-		// Initializing drop shadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		// when mouse enters label area, change the color and show the dropshadow
 		label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
-				label.setTextFill(Color.rgb(180, 5, 5));
+			@Override
+			public void handle(MouseEvent e) {
+				label.setTextFill(color);
 				label.setEffect(dropShadow);
 			}
 		});
 		
 		// when mouse exits label area, change color back and hide the dropshadow
 		label.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
+			@Override
+			public void handle(MouseEvent e) {
 				label.setEffect(null);
 				label.setTextFill(Color.BLACK);
 			}
@@ -95,12 +96,6 @@ public class GUI {
 	 * @param button
 	 */
 	public static void initScrollButton(Button button) {
-		// initializes drop shadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		// sets text color, action, and border for button
 		button.setTextFill(Color.BLACK);
@@ -112,7 +107,7 @@ public class GUI {
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				button.setTextFill(Color.rgb(180, 5, 5));
+				button.setTextFill(color);
 				button.setEffect(dropShadow);
 			}
 		});
@@ -133,12 +128,6 @@ public class GUI {
 	 * @param scrollPane
 	 */
 	public static void initScroll(ScrollPane scrollPane) {
-		// initializes dropshadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		// sets width, policies, and style of scroll pane
 		scrollPane.setPrefWidth(215);
@@ -156,7 +145,8 @@ public class GUI {
 		
 		// when mouse exits area of scroll pane, hide drop shadow
 		scrollPane.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
+			@Override
+			public void handle(MouseEvent e) {
 				scrollPane.setEffect(null);
 			}
 		});
@@ -168,12 +158,6 @@ public class GUI {
 	 * @param checkBox
 	 */
 	public static void initCheckBox(CheckBox checkBox) {
-		// initializes drop shadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setRadius(5.0);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setColor(Color.rgb(180, 5, 5)); 
 		
 		// sets font, width, and style of check box
 		checkBox.setFont(Font.font("arial", FontWeight.BOLD, 16));
@@ -184,14 +168,42 @@ public class GUI {
 		checkBox.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
+				checkBox.setTextFill(color);
 				checkBox.setEffect(dropShadow);
 			}
 		});
 		
 		// when mouse exits area of check box, hide drop shadow
 		checkBox.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override public void handle(MouseEvent e) {
+			@Override
+			public void handle(MouseEvent e) {
 				checkBox.setEffect(null);
+				checkBox.setTextFill(Color.BLACK);
+			}
+		});
+	}
+	
+	public static void initRadio(RadioButton radioButton) {
+		
+		// sets font, width, and style of check box
+		radioButton.setFont(Font.font("arial", FontWeight.BOLD, 16));
+		radioButton.setStyle("-fx-border-color:crimson; -fx-border-width:0;");
+		
+		// when mouse enters area of check box, show drop shadow
+		radioButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			@Override 
+			public void handle(MouseEvent e) {
+				radioButton.setTextFill(color);
+				radioButton.setEffect(dropShadow);
+			}
+		});
+		
+		// when mouse exits area of check box, hide drop shadow
+		radioButton.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				radioButton.setEffect(null);
+				radioButton.setTextFill(Color.BLACK);
 			}
 		});
 	}

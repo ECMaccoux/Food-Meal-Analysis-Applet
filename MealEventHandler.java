@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.paint.Color;
 
 /**
  * 
@@ -39,14 +41,14 @@ public class MealEventHandler {
 	/**
 	 * 
 	 */
-	static EventHandler<ActionEvent> analyzeMealHandler = new EventHandler<ActionEvent>() {
+	static EventHandler<ActionEvent> optionsHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			if(Main.foodInfoScene == 2) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
-				Main.root.setCenter(Main.analyzeMealBox);
+				Main.root.setCenter(Main.optionsBox);
 				Main.foodInfoScene = 2;
 			}
 			event.consume();
@@ -117,6 +119,38 @@ public class MealEventHandler {
 			}else {
 				Main.root.setCenter(Main.queryBox);
 				Main.foodInfoScene = 5;
+			}
+			event.consume();
+		}
+	};
+	
+	/**
+	 * 
+	 */
+	static EventHandler<ActionEvent> colorHandler = new EventHandler<ActionEvent>() {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			String color = ((RadioButton)event.getSource()).getText();
+			switch(color) {
+			case "Badger Red" : GUI.color = Color.rgb(197, 5, 12); 
+			GUI.dropShadow.setColor(GUI.color);
+			GUI.dropShadow.setRadius(4.5);
+			break;
+			case "Off" : GUI.dropShadow.setRadius(0);
+			break;
+			case "Blue" : GUI.color = Color.BLUE;
+			GUI.dropShadow.setColor(GUI.color);
+			GUI.dropShadow.setRadius(4.5);
+			break;
+			case "Purple" : GUI.color = Color.PURPLE;
+			GUI.dropShadow.setColor(GUI.color);
+			GUI.dropShadow.setRadius(4.5);
+			break;
+			case "Green" : GUI.color = Color.GREEN;
+			GUI.dropShadow.setColor(GUI.color);
+			GUI.dropShadow.setRadius(4.5);
+			break;
 			}
 			event.consume();
 		}
