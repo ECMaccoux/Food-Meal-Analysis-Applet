@@ -85,7 +85,7 @@ public class MealEventHandler {
 		
 		@Override
 		public void handle(ActionEvent event) {
-			if(Main.foodInfoScene == 4 && ((Button) event.getSource()).getText().equals(Main.food.getText())) {
+			if(Main.foodInfoScene == 4 && ("Food: " + ((Button) event.getSource()).getText()).equalsIgnoreCase(Main.food.getText())) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
