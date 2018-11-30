@@ -17,6 +17,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -32,6 +33,7 @@ public class MealEventHandler {
 	//						3 = create meal
 	//						4 = food info
 	// 						5 = query screen
+	//						6 = add item
 	
 	/**
 	 * 
@@ -45,14 +47,18 @@ public class MealEventHandler {
 	    	Stage chooserStage = new Stage();
 	    	File file = chooser.showOpenDialog(chooserStage);
 	    	
-	    	Main.foodDataList.loadFoodItems(file.getPath());
-	    	
-	    	List<FoodItem> list = Main.foodDataList.getAllFoodItems();
-	    	
-	    	for(int i = 0; i < list.size(); i++) {
-	    		Button newItem = new Button(list.get(i).getName());
-	    		GUI.initFoodItemButton(newItem, list.get(i));
-	    		Main.foodList.getChildren().add(newItem);
+	    	try {
+	    		Main.foodDataList.loadFoodItems(file.getPath());
+		    	
+		    	List<FoodItem> list = Main.foodDataList.getAllFoodItems();
+		    	
+		    	for(int i = 0; i < list.size(); i++) {
+		    		Button newItem = new Button(list.get(i).getName());
+		    		GUI.initFoodItemButton(newItem, list.get(i));
+		    		Main.foodList.getChildren().add(newItem);
+		    	}
+	    	} catch (NullPointerException e) {
+	    		
 	    	}
 	    	
 	        event.consume();
@@ -119,15 +125,16 @@ public class MealEventHandler {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
+				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
+				FoodItem itemToFind = itemList.get(0);
 				
+				Main.food.setText("Food: " + itemToFind.getName());
 				
-				Main.food.setText("Food: ");
-				
-				Label calories = new Label("Calories: ");
-				Label fat = new Label("Fat (Grams): ");
-				Label carbohydrates = new Label("Carbohydrates (Grams): ");
-				Label fiber = new Label("Fiber (Grams): ");
-				Label protein = new Label("Protein (Grams): ");
+				Label calories = new Label("Calories: " + itemToFind.getNutrientValue("calories"));
+				Label fat = new Label("Fat (Grams): " + itemToFind.getNutrientValue("fat"));
+				Label carbohydrates = new Label("Carbohydrates (Grams): " + itemToFind.getNutrientValue("carbohydrate"));
+				Label fiber = new Label("Fiber (Grams): " + itemToFind.getNutrientValue("fiber"));
+				Label protein = new Label("Protein (Grams): " + itemToFind.getNutrientValue("protein"));
 				
 				GUI.initLabel(calories, 1);
 				GUI.initLabel(Main.food, 1);
@@ -138,9 +145,10 @@ public class MealEventHandler {
 				
 				Main.food.setFont(Font.font("Arial", 24));
 				
-				Main.mealInfoBox.getChildren().addAll(Main.food, calories, fat, carbohydrates, fiber, protein);
+				Main.createMealScreen.getChildren().clear();
+				Main.createMealScreen.getChildren().addAll(Main.food, calories, fat, carbohydrates, fiber, protein);
 				
-				Main.root.setCenter(Main.mealInfoBox);
+				Main.root.setCenter(Main.createMealScreen);
 				Main.foodInfoScene = 4;
 			}
 			event.consume();
@@ -160,6 +168,23 @@ public class MealEventHandler {
 			}else {
 				Main.root.setCenter(Main.queryBox);
 				Main.foodInfoScene = 5;
+			}
+			event.consume();
+		}
+	};
+	
+	/**
+	 * 
+	 */
+	static EventHandler<ActionEvent> addFoodScreenHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			if(Main.foodInfoScene == 6) {
+				Main.root.setCenter(Main.foodInfo);
+				Main.foodInfoScene = 0;
+			} else {
+				Main.root.setCenter(Main.addFoodScreen);
+				Main.foodInfoScene = 6;
 			}
 			event.consume();
 		}

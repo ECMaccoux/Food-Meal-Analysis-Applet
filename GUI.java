@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -91,7 +92,7 @@ public class GUI {
 	}
 	
 	/**
-	 * Initialzes scroll buttons
+	 * Initializes scroll buttons
 	 * 
 	 * @param button
 	 */

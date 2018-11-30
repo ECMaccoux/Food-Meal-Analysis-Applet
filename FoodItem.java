@@ -64,7 +64,6 @@ public class FoodItem {
      * If nutrient already exists, updates its value.
      */
     public void addNutrient(String name, double value) {
-        // TODO : Complete
     	nutrients.put(name, value);
     }
 
@@ -73,8 +72,7 @@ public class FoodItem {
      * If not present, then returns 0.
      */
     public double getNutrientValue(String name) {
-        // TODO : Complete
-        return 0;
+        return nutrients.get(name);
     }
     
 }
