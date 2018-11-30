@@ -55,6 +55,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
 					finishedReading = true;
 				}
 				else {
+					tokens[1] = tokens[1].replaceAll("(?!^)([A-Z])", " $1");
+
+					
 					FoodItem item = new FoodItem(tokens[0], tokens[1]);
 					
 					for(int i = 2; i < tokens.length - 1; i += 2) {

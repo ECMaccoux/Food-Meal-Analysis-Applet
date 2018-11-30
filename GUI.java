@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -17,6 +16,7 @@ import javafx.scene.text.FontWeight;
 public class GUI {
 	public static DropShadow dropShadow = new DropShadow();
 	public static Color color = Color.rgb(197, 5, 12);
+	public static boolean dropShadowBool;
 	/**
 	 *  sets drop shadow of button
 	 */
@@ -25,6 +25,7 @@ public class GUI {
 		dropShadow.setOffsetX(2);
 		dropShadow.setOffsetY(2);
 		dropShadow.setColor(color);
+		dropShadowBool=true;
 	}
 	
 	/**
@@ -42,8 +43,10 @@ public class GUI {
 		// when mouse enters button area, changes color of text and displays drop shadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent e) {
-	        	button.setTextFill(color);
-	            button.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+		        	button.setTextFill(color);
+		            button.setEffect(dropShadow);
+	        	}
 	        }
 		});
 		
@@ -76,8 +79,10 @@ public class GUI {
 		label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				label.setTextFill(color);
-				label.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					label.setTextFill(color);
+					label.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -109,8 +114,10 @@ public class GUI {
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				button.setTextFill(color);
-				button.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					button.setTextFill(color);
+					button.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -141,7 +148,9 @@ public class GUI {
 		scrollPane.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				scrollPane.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					scrollPane.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -170,8 +179,10 @@ public class GUI {
 		checkBox.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				checkBox.setTextFill(color);
-				checkBox.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					checkBox.setTextFill(color);
+					checkBox.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -195,8 +206,10 @@ public class GUI {
 		radioButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				radioButton.setTextFill(color);
-				radioButton.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					radioButton.setTextFill(color);
+					radioButton.setEffect(dropShadow);
+	        	}
 			}
 		});
 		

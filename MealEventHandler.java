@@ -1,14 +1,7 @@
 package application;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -17,7 +10,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -60,7 +52,6 @@ public class MealEventHandler {
 	    	} catch (NullPointerException e) {
 	    		
 	    	}
-	    	
 	        event.consume();
 	    }
 	};
@@ -124,6 +115,8 @@ public class MealEventHandler {
 			if(Main.foodInfoScene == 4 && ("Food: " + ((Button) event.getSource()).getText()).equalsIgnoreCase(Main.food.getText())) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
+			}else if(Main.foodInfoScene == 3){
+				Main.createMealField.setText(((Button) event.getSource()).getText());
 			}else {
 				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
 				FoodItem itemToFind = itemList.get(0);
@@ -201,21 +194,21 @@ public class MealEventHandler {
 			switch(color) {
 			case "Badger Red" : GUI.color = Color.rgb(197, 5, 12); 
 			GUI.dropShadow.setColor(GUI.color);
-			GUI.dropShadow.setRadius(4.5);
+			GUI.dropShadowBool=true;
 			break;
-			case "Off" : GUI.dropShadow.setRadius(0);
+			case "Off" : GUI.dropShadowBool=false;
 			break;
 			case "Blue" : GUI.color = Color.BLUE;
 			GUI.dropShadow.setColor(GUI.color);
-			GUI.dropShadow.setRadius(4.5);
+			GUI.dropShadowBool=true;
 			break;
 			case "Purple" : GUI.color = Color.PURPLE;
 			GUI.dropShadow.setColor(GUI.color);
-			GUI.dropShadow.setRadius(4.5);
+			GUI.dropShadowBool=true;
 			break;
 			case "Green" : GUI.color = Color.GREEN;
 			GUI.dropShadow.setColor(GUI.color);
-			GUI.dropShadow.setRadius(4.5);
+			GUI.dropShadowBool=true;
 			break;
 			}
 			event.consume();
