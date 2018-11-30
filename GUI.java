@@ -95,13 +95,14 @@ public class GUI {
 	 * 
 	 * @param button
 	 */
-	public static void initScrollButton(Button button) {
+	public static void initFoodItemButton(Button button, FoodItem item) {
 		
 		// sets text color, action, and border for button
 		button.setTextFill(Color.BLACK);
 		button.setOnAction(MealEventHandler.scrollMealHandler);
 		button.setBorder(null);
 		button.setPrefWidth(200);
+		button.setMaxWidth(200);
 		
 		// when mouse enters the button area, change color and show dropshadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
@@ -132,7 +133,7 @@ public class GUI {
 		// sets width, policies, and style of scroll pane
 		scrollPane.setPrefWidth(215);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-		scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setStyle("-fx-border-color:crimson; -fx-border-width:0;");
 		
 		// when mouse enters area of scroll pane, show drop shadow
@@ -207,4 +208,6 @@ public class GUI {
 			}
 		});
 	}
+	
+	
 }

@@ -1,5 +1,7 @@
 package application;
 	
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +39,8 @@ public class Main extends Application {
 	public static TextField optionsField;
 	public static TextField createMealField;
 	public static Label food;
+	public static FoodData foodDataList;
+	public static VBox foodList;
 
 	/**
 	 * Starts GUI
@@ -94,11 +98,11 @@ public class Main extends Application {
 			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, options, query);
 			
 			// creates all labels
-			Label calories = new Label("Calories: ");
+			/*Label calories = new Label("Calories: ");
 			Label fat = new Label("Fat (Grams): ");
 			Label carbohydrates = new Label("Carbohydrates (Grams): ");
 			Label fiber = new Label("Fiber (Grams): ");
-			Label protein = new Label("Protein (Grams): ");
+			Label protein = new Label("Protein (Grams): ");*/
 			Label foodListTitle = new Label("Foods: ");
 			Label mealListTitle = new Label("Meals: ");
 			Label queryLabel = new Label("Filter Query:");
@@ -156,12 +160,12 @@ public class Main extends Application {
 			GUI.initCheckBox(proteinCheckBox);
 			
 			// initializes labels
-			GUI.initLabel(calories, 1);
+			/*GUI.initLabel(calories, 1);
 			GUI.initLabel(food, 1);
 			GUI.initLabel(fat, 1);
 			GUI.initLabel(carbohydrates, 1);
 			GUI.initLabel(fiber, 1);
-			GUI.initLabel(protein, 1);
+			GUI.initLabel(protein, 1);*/
 			GUI.initLabel(foodListTitle, 1);
 			GUI.initLabel(mealListTitle, 1);
 			GUI.initLabel(queryLabel, 0);
@@ -175,7 +179,7 @@ public class Main extends Application {
 			
 			// sets up food info screen
 			food.setFont(Font.font("Arial", 24));
-			mealInfoBox.getChildren().addAll(food, calories, fat, carbohydrates, fiber, protein);
+			//mealInfoBox.getChildren().addAll(food, calories, fat, carbohydrates, fiber, protein);
 			foodInfo.setPrefWidth(500);
 			foodInfo.setAlignment(Pos.TOP_CENTER);
 			foodInfo.setStyle("-fx-font: 40 arial;");
@@ -190,29 +194,28 @@ public class Main extends Application {
 			
 			// TODO: figure out file parsing
 			// initializes the food list
-			VBox foodList = new VBox();
 			Button temp = new Button();
-			//foodPane.getChildren().add(foodListTitle);
-			for(int i=0; i<200; i++) {
+			/*for(int i=0; i<200; i++) {
 				// TODO: This is going to be changed
 				temp = new Button("Spagett with #" + i + " Spicness");
 				GUI.initScrollButton(temp);
 				foodList.getChildren().add(temp);
-			}
+			}*/
 			
 			// creates a scrolling pane that contains the list of food
 			ScrollPane foodPane = new ScrollPane();
 			foodPane.setContent(foodList);
+			foodPane.setPrefHeight(700);
 			
 			// TODO: figure out file parsing
 			// initializes the meal list
 			VBox mealList = new VBox();
-			for(int i=0; i<200; i++) {
+			/*for(int i=0; i<200; i++) {
 				// TODO: This is going to be changed
 				temp = new Button("Test Meal #" + i + " Test Meal");
 				GUI.initScrollButton(temp);
 				mealList.getChildren().add(temp);
-			}
+			}*/
 			
 			// creates a scrolling pane that contains the list of meals
 			ScrollPane mealPane = new ScrollPane();
@@ -319,6 +322,8 @@ public class Main extends Application {
 		optionsField = new TextField();
 		createMealField = new TextField();
 		food = new Label();
+		foodDataList = new FoodData();
+		foodList = new VBox();
 	}
 	
 	/**

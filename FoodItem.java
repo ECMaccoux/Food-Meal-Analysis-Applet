@@ -25,7 +25,9 @@ public class FoodItem {
      * @param id unique id of the food item 
      */
     public FoodItem(String id, String name) {
-        // TODO : Complete
+    	this.nutrients = new HashMap<String, Double>();
+        this.id = id;
+        this.name = name;
     }
     
     /**
@@ -63,6 +65,7 @@ public class FoodItem {
      */
     public void addNutrient(String name, double value) {
         // TODO : Complete
+    	nutrients.put(name, value);
     }
 
     /**

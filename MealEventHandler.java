@@ -1,11 +1,23 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -27,13 +39,22 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> foodInfoHandler = new EventHandler<ActionEvent>() {
 	    @Override
 	    public void handle(ActionEvent event) {
-	    	if(Main.foodInfoScene == 1) {
-	    		Main.root.setCenter(Main.foodInfo);
-	    		Main.foodInfoScene = 0;
-	    	}else {
-	    		Main.root.setCenter(Main.loadFoodBox);
-	    		Main.foodInfoScene = 1;
+	    	FileChooser chooser = new FileChooser();
+	    	chooser.setTitle("Open Food List File");
+	    	
+	    	Stage chooserStage = new Stage();
+	    	File file = chooser.showOpenDialog(chooserStage);
+	    	
+	    	Main.foodDataList.loadFoodItems(file.getPath());
+	    	
+	    	List<FoodItem> list = Main.foodDataList.getAllFoodItems();
+	    	
+	    	for(int i = 0; i < list.size(); i++) {
+	    		Button newItem = new Button(list.get(i).getName());
+	    		GUI.initFoodItemButton(newItem, list.get(i));
+	    		Main.foodList.getChildren().add(newItem);
 	    	}
+	    	
 	        event.consume();
 	    }
 	};
@@ -98,7 +119,27 @@ public class MealEventHandler {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
-				Main.food.setText("Food: " + ((Button) event.getSource()).getText());
+				
+				
+				Main.food.setText("Food: ");
+				
+				Label calories = new Label("Calories: ");
+				Label fat = new Label("Fat (Grams): ");
+				Label carbohydrates = new Label("Carbohydrates (Grams): ");
+				Label fiber = new Label("Fiber (Grams): ");
+				Label protein = new Label("Protein (Grams): ");
+				
+				GUI.initLabel(calories, 1);
+				GUI.initLabel(Main.food, 1);
+				GUI.initLabel(fat, 1);
+				GUI.initLabel(carbohydrates, 1);
+				GUI.initLabel(fiber, 1);
+				GUI.initLabel(protein, 1);
+				
+				Main.food.setFont(Font.font("Arial", 24));
+				
+				Main.mealInfoBox.getChildren().addAll(Main.food, calories, fat, carbohydrates, fiber, protein);
+				
 				Main.root.setCenter(Main.mealInfoBox);
 				Main.foodInfoScene = 4;
 			}

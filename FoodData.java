@@ -1,7 +1,12 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class represents the backend for managing all 
@@ -22,7 +27,8 @@ public class FoodData implements FoodDataADT<FoodItem> {
      * Public constructor
      */
     public FoodData() {
-        // TODO : Complete
+        foodItemList = new ArrayList<FoodItem>();
+        indexes = new HashMap<String, BPTree<Double, FoodItem>>();
     }
     
     
@@ -32,7 +38,37 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public void loadFoodItems(String filePath) {
-        // TODO : Complete
+    	
+		try {
+			File file = new File(filePath);
+			Scanner reader = new Scanner(file);
+			
+			foodItemList.clear();
+	    	indexes.clear();
+			
+			boolean finishedReading = false;
+			
+			while(reader.hasNextLine() && !finishedReading) {
+				String[] tokens = reader.nextLine().split(",");
+				
+				if(tokens == null || tokens.length == 0 || tokens[0] == null || tokens[0] == "") {
+					finishedReading = true;
+				}
+				else {
+					FoodItem item = new FoodItem(tokens[0], tokens[1]);
+					
+					for(int i = 2; i < tokens.length - 1; i += 2) {
+						item.addNutrient(tokens[i], Double.parseDouble(tokens[i + 1]));
+					}
+					
+					addFoodItem(item);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO: Do something here plz so that the user knows they suck
+			e.printStackTrace();
+		}
+    	
     }
 
     /*
@@ -61,7 +97,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public void addFoodItem(FoodItem foodItem) {
-        // TODO : Complete
+        foodItemList.add(foodItem);
     }
 
     /*
@@ -70,8 +106,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     @Override
     public List<FoodItem> getAllFoodItems() {
-        // TODO : Complete
-        return null;
+        return foodItemList;
     }
     
     @Override
