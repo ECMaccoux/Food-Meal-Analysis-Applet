@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -296,6 +297,11 @@ public class Main extends Application {
 			primaryStage.show();
 			
 		} catch(Exception e) {
+			Alert dialog = new Alert(Alert.AlertType.ERROR);
+			dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
+					+ "If problem persists, please contact system architecture by email: jpientka@wisc.edu");
+			dialog.showAndWait();
+			primaryStage.hide();
 			e.printStackTrace();
 		}
 	}

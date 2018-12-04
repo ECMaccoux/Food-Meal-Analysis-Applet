@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -50,7 +51,11 @@ public class MealEventHandler {
 		    		Main.foodList.getChildren().add(newItem);
 		    	}
 	    	} catch (NullPointerException e) {
-	    		
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Internal Error, please try again\n\n"
+						+ "If problem persists, please contact system architecture by email: emaccoux@wisc.edu");
+				dialog.showAndWait();
+				e.printStackTrace();
 	    	}
 	        event.consume();
 	    }

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import javafx.scene.control.Alert;
+
 /**
  * This class represents the backend for managing all 
  * the operations associated with FoodItems
@@ -68,7 +70,11 @@ public class FoodData implements FoodDataADT<FoodItem> {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// TODO: Do something here plz so that the user knows they suck
+			Alert dialog = new Alert(Alert.AlertType.ERROR);
+			dialog.setHeaderText("FILE NOT FOUND\n"
+					+ "\nPlease try to re-load file\n"
+					+ "If problem persists, please contact system architecture by email: emaccoux@wisc.edu");
+			dialog.showAndWait();
 			e.printStackTrace();
 		}
     	
