@@ -1,5 +1,6 @@
 package application;
 
+import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -16,11 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 public class GUI {
 	public static DropShadow dropShadow = new DropShadow();
 	public static Color color = Color.rgb(197, 5, 12);
 	public static boolean dropShadowBool;
+	public static FadeTransition fadeAnimation;
+	
 	/**
 	 *  sets drop shadow of button
 	 */
@@ -49,6 +53,7 @@ public class GUI {
 		dropShadow.setOffsetY(2);
 		dropShadow.setColor(color);
 		dropShadowBool=true;
+		fadeAnimation = new FadeTransition(Duration.millis(300));
 	}
 	
 	/**
@@ -132,7 +137,10 @@ public class GUI {
 		button.setBorder(null);
 		button.setPrefWidth(200);
 		button.setMaxWidth(200);
-		
+        button.setOnMouseEntered(e -> fadeAnimation.playFromStart());
+        button.setOnMouseExited(e -> fadeAnimation.playFromStart());
+
+        button.setOpacity(0.8);
 		// when mouse enters the button area, change color and show dropshadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
