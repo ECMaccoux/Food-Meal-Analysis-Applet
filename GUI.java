@@ -1,18 +1,23 @@
 package application;
 
+import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 
 /**
@@ -24,14 +29,38 @@ import javafx.scene.text.FontWeight;
 public class GUI {
 	public static DropShadow dropShadow = new DropShadow();
 	public static Color color = Color.rgb(197, 5, 12);
+	public static boolean dropShadowBool;
+	public static FadeTransition fadeAnimation;
+	
 	/**
 	 *  sets drop shadow of button
 	 */
 	public static void initGUI() {
+		Main.root = new BorderPane();
+		Main.mealList = new VBox();
+		Main.foodInfoScene = 0;
+		Main.foodInfo = new Label("Select Food");
+		Main.loadFoodBox = new HBox();
+		Main.optionsBox = new HBox();
+		Main.mealListAddBox = new VBox();
+		Main.createMealScreen = new VBox();
+		Main.queryBox = new VBox();
+		Main.mealScrollPane = new ScrollPane();
+		Main.mealScrollList = new VBox();
+		Main.optionsField = new TextField();
+		Main.createMealField = new TextField();
+		Main.food = new Label();
+		Main.foodDataList = new FoodData();
+		Main.foodList = new VBox();
+		Main.addFoodScreen = new VBox();
+		Main.mealInfoScreen = new VBox();
+		
 		dropShadow.setRadius(4.5);
 		dropShadow.setOffsetX(2);
 		dropShadow.setOffsetY(2);
 		dropShadow.setColor(color);
+		dropShadowBool=true;
+		fadeAnimation = new FadeTransition(Duration.millis(300));
 	}
 	
 	/**
@@ -49,8 +78,10 @@ public class GUI {
 		// when mouse enters button area, changes color of text and displays drop shadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent e) {
-	        	button.setTextFill(color);
-	            button.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+		        	button.setTextFill(color);
+		            button.setEffect(dropShadow);
+	        	}
 	        }
 		});
 		
@@ -83,8 +114,10 @@ public class GUI {
 		label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				label.setTextFill(color);
-				label.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					label.setTextFill(color);
+					label.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -111,13 +144,18 @@ public class GUI {
 		button.setBorder(null);
 		button.setPrefWidth(200);
 		button.setMaxWidth(200);
-		
+        button.setOnMouseEntered(e -> fadeAnimation.playFromStart());
+        button.setOnMouseExited(e -> fadeAnimation.playFromStart());
+
+        button.setOpacity(0.8);
 		// when mouse enters the button area, change color and show dropshadow
 		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				button.setTextFill(color);
-				button.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					button.setTextFill(color);
+					button.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -148,7 +186,9 @@ public class GUI {
 		scrollPane.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				scrollPane.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					scrollPane.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -177,8 +217,10 @@ public class GUI {
 		checkBox.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				checkBox.setTextFill(color);
-				checkBox.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					checkBox.setTextFill(color);
+					checkBox.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -202,8 +244,10 @@ public class GUI {
 		radioButton.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent e) {
-				radioButton.setTextFill(color);
-				radioButton.setEffect(dropShadow);
+	        	if(dropShadowBool) {
+					radioButton.setTextFill(color);
+					radioButton.setEffect(dropShadow);
+	        	}
 			}
 		});
 		
@@ -217,5 +261,38 @@ public class GUI {
 		});
 	}
 	
-	
+	/**
+	 * Initializes scroll buttons
+	 * TODO: finish this method
+	 * @param button
+	 */
+	public static void initMealItemButton(Button button, FoodData data) {
+		
+		// sets text color, action, and border for button
+		button.setTextFill(Color.BLACK);
+		button.setOnAction(MealEventHandler.scrollMealHandler);
+		button.setBorder(null);
+		button.setPrefWidth(200);
+		button.setMaxWidth(200);
+		
+		// when mouse enters the button area, change color and show dropshadow
+		button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			@Override 
+			public void handle(MouseEvent e) {
+	        	if(dropShadowBool) {
+					button.setTextFill(color);
+					button.setEffect(dropShadow);
+	        	}
+			}
+		});
+		
+		// when mouse exits the button area, change color back and hide dropshadow
+		button.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+			@Override 
+			public void handle(MouseEvent e) {
+				button.setEffect(null);
+				button.setTextFill(Color.BLACK);
+			}
+		});
+	}
 }

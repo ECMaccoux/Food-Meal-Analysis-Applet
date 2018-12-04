@@ -1,12 +1,11 @@
 package application;
 	
-import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -17,7 +16,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  * Main class
@@ -44,6 +45,7 @@ public class Main extends Application {
 	public static VBox foodList;
 	public static VBox addFoodScreen;
 	public static VBox mealInfoScreen;
+	public static VBox mealList;
 
 	/**
 	 * Starts GUI
@@ -54,15 +56,12 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			// initializes public static fields
-			initialize();
-			
-			//initializes GUI
+			//initializes GUI and public static fields
 			GUI.initGUI();
 			
 			// creates the scene
 			Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
-
+			
 			// creates the stage
 			primaryStage.setResizable(false);
 			primaryStage.setMaxWidth(1280);
@@ -80,6 +79,7 @@ public class Main extends Application {
 			Button addFoodButton = new Button("Add");
 			Button addFoodSubmit = new Button("Submit");
 			Button analyzeMeal = new Button("Analyze Meal");
+			Button saveMeal = new Button("Save Meal");
 			
 			// Initializes all buttons
 			GUI.initButton(loadFood);
@@ -89,11 +89,13 @@ public class Main extends Application {
 			GUI.initButton(query);
 			GUI.initButton(addMealButton);
 			GUI.initButton(addFoodSubmit);
+			GUI.initButton(saveMeal);
 			
 			// initializes center area box
 			createMealScreen.setAlignment(Pos.TOP_CENTER);
 			addMealButton.setPrefWidth(45);
 			addMealButton.setFont(Font.font("Arial", 14));
+			
 			
 			// initializes button box at bottom of screen
 			HBox bottomBox = new HBox();
@@ -120,6 +122,7 @@ public class Main extends Application {
 			Label addFoodTitleLabel = new Label("Add New Food");
 			Label currentMealLabel = new Label("Current Meal");
 			Label sortLabel = new Label("Sort By:");
+			Label mealNameLabel = new Label("Meal Name: ");
 			
 			// creates all check boxes
 			CheckBox caloriesCheckBox = new CheckBox("Filter By Calories");
@@ -192,6 +195,7 @@ public class Main extends Application {
 			GUI.initLabel(sortLabel, 0);
 			GUI.initLabel(newFoodName, 1);
 			GUI.initLabel(addFoodTitleLabel, 1);
+			GUI.initLabel(mealNameLabel, 0);
 			
 			// sets up food info screen
 			food.setFont(Font.font("Arial", 24));
@@ -199,6 +203,12 @@ public class Main extends Application {
 			foodInfo.setAlignment(Pos.TOP_CENTER);
 			foodInfo.setStyle("-fx-font: 40 arial;");
 		
+			saveMeal.setPrefWidth(850);
+			createMealTitleLabel.setFont(Font.font("arial", FontWeight.BOLD, 36));
+			createMealTitleLabel.setPrefWidth(850);
+			optionsField.setPrefWidth(400);
+			createMealField.setPrefWidth(400);
+			
 			// sets spacing within button box
 			HBox.setMargin(saveFood, new Insets(14));
 			HBox.setMargin(loadFood, new Insets(14));
@@ -211,9 +221,6 @@ public class Main extends Application {
 			ScrollPane foodPane = new ScrollPane();
 			foodPane.setContent(foodList);
 			foodPane.setPrefHeight(700);
-			
-			// initializes the meal list
-			VBox mealList = new VBox();
 			
 			// creates a scrolling pane that contains the list of meals
 			ScrollPane mealPane = new ScrollPane();
@@ -263,7 +270,7 @@ public class Main extends Application {
 			createMealFieldBox.getChildren().addAll(addFoodLabel, createMealField, addMealButton);
 			
 			// adds label/field/box/label to MealListAdd (create meal screen)
-			mealListAddBox.getChildren().addAll(createMealTitleLabel, optionsField, createMealFieldBox, currentMealLabel, mealScrollPane);
+			mealListAddBox.getChildren().addAll(createMealTitleLabel, new HBox(mealNameLabel, optionsField), createMealFieldBox, currentMealLabel, mealScrollPane, saveMeal);
 			
 			// adds necessary checkboxes to queryBox
 			queryBox.getChildren().addAll(queryLabel, caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
@@ -276,12 +283,12 @@ public class Main extends Application {
 					new HBox(fiber, addFoodFibers), new HBox(protein, addFoodProteins), addFoodSubmit);
 			
 			// initializes list of items in meal, adds it to MealListAdd
-			mealScrollPane.setPrefHeight(450);
+			mealScrollPane.setPrefHeight(400);
 			mealScrollPane.setContent(mealScrollList);
 			
 			// Adds all radio buttons to color list
 			colorBox.getChildren().addAll(badgerRed, blue, purple, green, off);
-			
+						
 			// sets actions for each buttons
 			loadFood.setOnAction(MealEventHandler.foodInfoHandler);
 			options.setOnAction(MealEventHandler.optionsHandler);
@@ -294,40 +301,23 @@ public class Main extends Application {
 			purple.setOnAction(MealEventHandler.colorHandler);
 			blue.setOnAction(MealEventHandler.colorHandler);
 			addFoodButton.setOnAction(MealEventHandler.addFoodScreenHandler);
+			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
 			
 			// displays the stage
 			primaryStage.show();
 			
 		} catch(Exception e) {
+			Alert dialog = new Alert(Alert.AlertType.ERROR);
+			dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
+					+ "If problem persists, please contact system architecture by email: jpientka@wisc.edu");
+			dialog.showAndWait();
+			primaryStage.hide();
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * 
-	 */
-	private void initialize() {
-		root = new BorderPane();
-		foodInfoScene = 0;
-		foodInfo = new Label("Select Food");
-		loadFoodBox = new HBox();
-		optionsBox = new HBox();
-		mealListAddBox = new VBox();
-		createMealScreen = new VBox();
-		queryBox = new VBox();
-		mealScrollPane = new ScrollPane();
-		mealScrollList = new VBox();
-		optionsField = new TextField();
-		createMealField = new TextField();
-		food = new Label();
-		foodDataList = new FoodData();
-		foodList = new VBox();
-		addFoodScreen = new VBox();
-		mealInfoScreen = new VBox();
-	}
-	
-	/**
-	 * 
+	 * Main method that launches everything.
 	 * @param args
 	 */
 	public static void main(String[] args) {

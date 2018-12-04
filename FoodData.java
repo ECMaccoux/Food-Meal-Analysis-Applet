@@ -3,10 +3,11 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+
+import javafx.scene.control.Alert;
 
 /**
  * This class represents the backend for managing all 
@@ -55,6 +56,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
 					finishedReading = true;
 				}
 				else {
+					tokens[1] = tokens[1].replaceAll("([A-Z])", " $1");
+
+					
 					FoodItem item = new FoodItem(tokens[0], tokens[1]);
 					
 					for(int i = 2; i < tokens.length - 1; i += 2) {
@@ -64,8 +68,13 @@ public class FoodData implements FoodDataADT<FoodItem> {
 					addFoodItem(item);
 				}
 			}
+			reader.close();
 		} catch (FileNotFoundException e) {
-			// TODO: Do something here plz so that the user knows they suck
+			Alert dialog = new Alert(Alert.AlertType.ERROR);
+			dialog.setHeaderText("FILE NOT FOUND\n"
+					+ "\nPlease try to re-load file\n"
+					+ "If problem persists, please contact system architecture by email: emaccoux@wisc.edu");
+			dialog.showAndWait();
 			e.printStackTrace();
 		}
     	
@@ -84,7 +93,6 @@ public class FoodData implements FoodDataADT<FoodItem> {
         		listToReturn.add(foodItemList.get(i));
         	}
         }
-        
         return listToReturn;
     }
 
