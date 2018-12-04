@@ -45,8 +45,7 @@ public class FoodItem {
      * @return id of the food item
      */
     public String getID() {
-        // TODO : Complete
-        return null;
+        return id;
     }
     
     /**
@@ -55,8 +54,7 @@ public class FoodItem {
      * @return nutrients of the food item
      */
     public HashMap<String, Double> getNutrients() {
-        // TODO : Complete
-        return null;
+        return nutrients;
     }
 
     /**

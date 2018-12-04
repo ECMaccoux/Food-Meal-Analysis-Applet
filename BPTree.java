@@ -42,7 +42,10 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
             throw new IllegalArgumentException(
                "Illegal branching factor: " + branchingFactor);
         }
-        // TODO : Complete
+        
+        // this.root = null;
+        this.root = new LeafNode();
+        this.branchingFactor = branchingFactor;
     }
     
     
@@ -52,7 +55,17 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
      */
     @Override
     public void insert(K key, V value) {
-        // TODO : Complete
+        root.insert(key, value);
+    	
+    	/*if(root == null) {
+    		root = new LeafNode();
+    		root.insert(key, value);
+    		return;
+    	}
+    	
+    	if(root.isOverflow()) {
+    		
+    	}*/
     }
     
     
@@ -122,7 +135,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * Package constructor
          */
         Node() {
-            // TODO : Complete
+        	keys = new ArrayList<K>();
         }
         
         /**
@@ -184,7 +197,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         InternalNode() {
             super();
-            // TODO : Complete
+            children = new ArrayList<Node>();
         }
         
         /**
@@ -192,7 +205,6 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#getFirstLeafKey()
          */
         K getFirstLeafKey() {
-            // TODO : Complete
             return null;
         }
         
@@ -201,7 +213,9 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#isOverflow()
          */
         boolean isOverflow() {
-            // TODO : Complete
+            if(keys.size() >= branchingFactor) {
+            	return true;
+            }
             return false;
         }
         
@@ -210,7 +224,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#insert(java.lang.Comparable, java.lang.Object)
          */
         void insert(K key, V value) {
-            // TODO : Complete
+            
         }
         
         /**
@@ -258,7 +272,9 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         LeafNode() {
             super();
-            // TODO : Complete
+            values = new ArrayList<V>();
+            next = null;
+            previous = null;
         }
         
         
@@ -267,8 +283,11 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#getFirstLeafKey()
          */
         K getFirstLeafKey() {
-            // TODO : Complete
-            return null;
+        	try {
+            	return keys.get(0);
+            } catch (IndexOutOfBoundsException e) {
+            	return null;
+            }
         }
         
         /**
@@ -276,7 +295,9 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#isOverflow()
          */
         boolean isOverflow() {
-            // TODO : Complete
+        	if(keys.size() >= branchingFactor) {
+            	return true;
+            }
             return false;
         }
         
@@ -285,7 +306,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#insert(Comparable, Object)
          */
         void insert(K key, V value) {
-            // TODO : Complete
+            
         }
         
         /**
