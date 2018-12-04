@@ -87,7 +87,6 @@ public class FoodData implements FoodDataADT<FoodItem> {
         		listToReturn.add(foodItemList.get(i));
         	}
         }
-        
         return listToReturn;
     }
 
