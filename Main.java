@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 /**
+ * Main class
  * 
  * @author Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
  *

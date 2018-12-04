@@ -12,7 +12,7 @@ import java.util.Scanner;
  * This class represents the backend for managing all 
  * the operations associated with FoodItems
  * 
- * @author sapan (sapan@cs.wisc.edu)
+ * @author sapan (sapan@cs.wisc.edu), Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
  */
 public class FoodData implements FoodDataADT<FoodItem> {
     

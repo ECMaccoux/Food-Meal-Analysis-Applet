@@ -21,8 +21,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
+ * MealEventHandler class
  * 
- * @author Tony Tu
+ * @author Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
  *
  */
 public class MealEventHandler {

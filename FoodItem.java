@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * This class represents a food item with all its properties.
  * 
- * @author aka
+ * @author aka, Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
  */
 public class FoodItem {
     // The name of the food item.

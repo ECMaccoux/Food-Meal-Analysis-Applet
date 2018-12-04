@@ -14,6 +14,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+
+/**
+ * GUI class
+ * 
+ * @author Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
+ *
+ */
 public class GUI {
 	public static DropShadow dropShadow = new DropShadow();
 	public static Color color = Color.rgb(197, 5, 12);
