@@ -3,7 +3,6 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -69,6 +68,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
 					addFoodItem(item);
 				}
 			}
+			reader.close();
 		} catch (FileNotFoundException e) {
 			Alert dialog = new Alert(Alert.AlertType.ERROR);
 			dialog.setHeaderText("FILE NOT FOUND\n"

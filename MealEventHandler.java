@@ -219,4 +219,19 @@ public class MealEventHandler {
 			event.consume();
 		}
 	};
+	
+	/**
+	 * 
+	 */
+	static EventHandler<ActionEvent> saveMealHandler = new EventHandler<ActionEvent>() {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			Button newMealButton = new Button(Main.optionsField.getText());
+			//TODO: add FoodData
+			GUI.initMealItemButton(newMealButton, new FoodData());
+			Main.mealList.getChildren().add(newMealButton);
+			event.consume();
+		}
+	};
 }
