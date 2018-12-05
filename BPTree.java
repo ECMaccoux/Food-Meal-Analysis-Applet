@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -205,7 +206,11 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#getFirstLeafKey()
          */
         K getFirstLeafKey() {
-            return null;
+        	try {
+        		return children.get(0).getFirstLeafKey();
+        	} catch (IndexOutOfBoundsException e) {
+        		return null;
+        	}
         }
         
         /**
@@ -224,7 +229,36 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#insert(java.lang.Comparable, java.lang.Object)
          */
         void insert(K key, V value) {
-            
+        	int location = Collections.binarySearch(keys, key);
+        	Node childNode;
+        	
+        	if(location >= 0) {
+        		childNode = children.get(location);
+        	} else {
+        		childNode = children.get(-(location) - 1);
+        	}
+    		childNode.insert(key, value);
+        	
+    		if(childNode.isOverflow()) {
+    			Node split = childNode.split();
+    			
+    			if(location >= 0) {
+    				keys.add(location, split.getFirstLeafKey());
+    				children.add(location + 1, split);
+    			} else {
+    				keys.add(-(location) - 1, split.getFirstLeafKey());
+    				children.add(-(location), split);
+    			}
+    		}
+    		
+    		if(root.isOverflow()) {
+				Node split = split();
+				InternalNode newParent = new InternalNode();
+				newParent.keys.add(split.getFirstLeafKey());
+				newParent.children.add(this);
+				newParent.children.add(split);
+				root = newParent;
+			}
         }
         
         /**
@@ -232,8 +266,18 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#split()
          */
         Node split() {
-            // TODO : Complete
-            return null;
+            InternalNode split = new InternalNode();
+            
+            for(int i = (this.keys.size() / 2) + 1; i < this.keys.size(); i++) {
+            	split.keys.add(this.keys.get(i));
+            	split.children.add(this.children.get(i));
+            }
+            split.children.add(this.children.get(this.keys.size()));
+            
+            this.keys.subList(this.keys.size() / 2, this.keys.size()).clear();
+            this.children.subList((this.children.size() / 2), this.children.size()).clear();
+            
+            return split;
         }
         
         /**
@@ -284,10 +328,10 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          */
         K getFirstLeafKey() {
         	try {
-            	return keys.get(0);
-            } catch (IndexOutOfBoundsException e) {
-            	return null;
-            }
+        		return keys.get(0);
+        	} catch (IndexOutOfBoundsException e) {
+        		return null;
+        	}
         }
         
         /**
@@ -306,7 +350,24 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#insert(Comparable, Object)
          */
         void insert(K key, V value) {
-            
+        	int location = Collections.binarySearch(keys, key);
+			if(location >= 0) {
+				// TODO: check if this is working...?
+				keys.add(location, key);
+				values.add(location, value);
+			} else {
+				keys.add(-(location) - 1, key);
+				values.add(-(location) - 1, value);
+			}
+			
+			if(root.isOverflow()) {
+				Node split = split();
+				InternalNode newParent = new InternalNode();
+				newParent.keys.add(split.getFirstLeafKey());
+				newParent.children.add(this);
+				newParent.children.add(split);
+				root = newParent;
+			}
         }
         
         /**
@@ -314,8 +375,24 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#split()
          */
         Node split() {
-            // TODO : Complete
-            return null;
+            LeafNode split = new LeafNode();
+            
+            //for(int i = (this.keys.size() - 1) / 2; i < this.keys.size(); i++) {
+            for(int i = (this.keys.size()) / 2; i < this.keys.size(); i++) {
+            	split.keys.add(this.keys.get(i));
+            	split.values.add(this.values.get(i));
+            }
+            
+            /*this.keys.subList((this.keys.size() - 1) / 2, this.keys.size()).clear();
+            this.values.subList((this.values.size() - 1) / 2, this.values.size()).clear();*/
+            this.keys.subList((this.keys.size()) / 2, this.keys.size()).clear();
+            this.values.subList((this.values.size()) / 2, this.values.size()).clear();
+            
+            split.next = next;
+            this.next = split;
+            split.previous = this;
+            
+            return split;
         }
         
         /**
@@ -340,7 +417,37 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     public static void main(String[] args) {
         // create empty BPTree with branching factor of 3
         BPTree<Double, Double> bpTree = new BPTree<>(3);
+        
+        /*bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(10.0, 10.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(7.0, 7.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(6.0, 6.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(8.0, 8.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        bpTree.insert(5.0, 5.0);
+        System.out.println("\n\nTree structure:\n" + bpTree.toString());
 
+        for(double i = 1.0; i < 10.0; i++) {
+        	bpTree.insert(i, i);
+        	System.out.println("\n\nTree structure:\n" + bpTree.toString());
+        }*/
+        
         // create a pseudo random number generator
         Random rnd1 = new Random();
 
@@ -360,8 +467,8 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
             bpTree.insert(j, j);
             System.out.println("\n\nTree structure:\n" + bpTree.toString());
         }
-        List<Double> filteredValues = bpTree.rangeSearch(0.2d, ">=");
-        System.out.println("Filtered values: " + filteredValues.toString());
+        //List<Double> filteredValues = bpTree.rangeSearch(0.2d, ">=");
+        //System.out.println("Filtered values: " + filteredValues.toString());
     }
 
 } // End of class BPTree

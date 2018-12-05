@@ -1,0 +1,42 @@
+BPTree Insert
+	Need 5 BPTrees, one for each nutrient
+	Ex: 5, 10, 7, 5, 6, 5, 8
+		BF = 3
+	
+	1) Insert 5
+		|5|
+	
+	2) Insert 10
+		|5 10|
+		
+	3) Insert 7
+		|5 7 10|
+		SPLIT
+			|7|
+		|5| ->  |7 10|
+		
+	4) Insert 5
+			  |7|
+		|5 5| ->  |7 10|
+	
+	5) Insert 6
+			   |7|
+		|5 5 6| ->  |7 10|
+		SPLIT
+			    |6 7|
+		|5 5| -> |6| -> |7 10|
+	
+	6) Insert 5
+			      |6 7|
+		|5 5 5| -> |6| -> |7 10|
+		SPLIT
+				 |5 7|
+		|5 5| -> |5 6| -> |7 10|	(visualizer tool solution, needs doubly-linked list)
+		OR
+				    |5 7|
+		|5 5| -> |5| -> |6| -> |7, 10|	("add a node" solution)
+		OR
+		Solve with linked list buckets
+		
+	7) Insert 8
+		
