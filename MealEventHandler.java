@@ -283,4 +283,18 @@ public class MealEventHandler {
 			event.consume();
 		}
 	};
+	
+	/**
+	 * Handler for apply Query button.
+	 * 
+	 * applies the Query.
+	 */
+	static EventHandler<ActionEvent> applyQueryHandler = new EventHandler<ActionEvent>() {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			
+			event.consume();
+		}
+	};
 }

@@ -54,6 +54,7 @@ public class GUI {
 		Main.foodList = new VBox();
 		Main.addFoodScreen = new VBox();
 		Main.mealInfoScreen = new VBox();
+		Main.ruleList = new ScrollPane();
 		
 		dropShadow.setRadius(4.5);
 		dropShadow.setOffsetX(2);

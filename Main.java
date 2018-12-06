@@ -38,6 +38,7 @@ public class Main extends Application {
 	public static VBox mealScrollList;
 	public static TextField optionsField;
 	public static TextField createMealField;
+	public static ScrollPane ruleList;
 	public static Label food;
 	public static FoodData foodDataList;
 	public static VBox foodList;
@@ -78,6 +79,7 @@ public class Main extends Application {
 			Button addFoodSubmit = new Button("Submit");
 			Button analyzeMeal = new Button("Analyze Meal");
 			Button saveMeal = new Button("Save Meal");
+			Button applyQuery = new Button("Apply Query");
 			
 			// Initializes all buttons
 			GUI.initButton(loadFood);
@@ -88,6 +90,7 @@ public class Main extends Application {
 			GUI.initButton(addMealButton);
 			GUI.initButton(addFoodSubmit);
 			GUI.initButton(saveMeal);
+			GUI.initButton(applyQuery);
 			
 			// initializes center area box
 			createMealScreen.setAlignment(Pos.TOP_CENTER);
@@ -100,6 +103,9 @@ public class Main extends Application {
 			
 			// initializes color button box in the options menu
 			HBox colorBox = new HBox();
+			HBox ruleBox = new HBox();
+			VBox nameRuleBox = new VBox();
+			VBox ruleRuleBox = new VBox();
 			
 			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, query, options);
 			
@@ -121,30 +127,28 @@ public class Main extends Application {
 			Label currentMealLabel = new Label("Current Meal");
 			Label sortLabel = new Label("Sort By:");
 			Label mealNameLabel = new Label("Meal Name: ");
-			
-			// creates all check boxes
-			CheckBox caloriesCheckBox = new CheckBox("Filter By Calories");
-			CheckBox fatCheckBox = new CheckBox("Filter By Fat");
-			CheckBox carbohydrateCheckBox = new CheckBox("Filter By Carbohydrate");
-			CheckBox fiberCheckBox = new CheckBox("Filter By Fiber");
-			CheckBox proteinCheckBox = new CheckBox("Filter By Protein");
-			
+						
 			// creates all radio buttons
-			RadioButton nameSort = new RadioButton("Sort By Name");
-			RadioButton caloriesSort = new RadioButton("Sort By Calories");
-			RadioButton fatSort = new RadioButton("Sort By Fat");
-			RadioButton carbohydrateSort = new RadioButton("Sort By Carbohydrates");
-			RadioButton fiberSort = new RadioButton("Sort By Fiber");
-			RadioButton proteinSort = new RadioButton("Sort By Protein");
 			RadioButton badgerRed = new RadioButton("Badger Red");
 			RadioButton green = new RadioButton("Green");
 			RadioButton off = new RadioButton("Off");
 			RadioButton purple = new RadioButton("Purple");
 			RadioButton blue = new RadioButton("Blue");
+			RadioButton caloriesCheckBox = new RadioButton("Filter By Calories");
+			RadioButton fatCheckBox = new RadioButton("Filter By Fat");
+			RadioButton carbohydrateCheckBox = new RadioButton("Filter By Carbohydrate");
+			RadioButton fiberCheckBox = new RadioButton("Filter By Fiber");
+			RadioButton proteinCheckBox = new RadioButton("Filter By Protein");
+			RadioButton greaterThan = new RadioButton("Greater Than");
+			RadioButton greaterEqualThan = new RadioButton("Greater or Equal Than");
+			RadioButton lessThan = new RadioButton("Less Than");
+			RadioButton lessEqualThan = new RadioButton("Less or Equal Than");
+			RadioButton equalTo = new RadioButton("Equal To");
 			
 			// creates all toggle groups
-			ToggleGroup sortGroup = new ToggleGroup();
 			ToggleGroup colorGroup = new ToggleGroup();
+			ToggleGroup ruletypeGroup = new ToggleGroup();
+			ToggleGroup ruleruleGroup = new ToggleGroup();
 			
 			// creates all text fields
 			TextField loadFoodField = new TextField();
@@ -156,24 +160,21 @@ public class Main extends Application {
 			TextField addFoodProteins = new TextField();
 			
 			// initializes Radio Buttons
-			GUI.initRadio(nameSort);
-			GUI.initRadio(caloriesSort);
-			GUI.initRadio(fatSort);
-			GUI.initRadio(carbohydrateSort);
-			GUI.initRadio(fiberSort);
-			GUI.initRadio(proteinSort);
 			GUI.initRadio(badgerRed);
 			GUI.initRadio(green);
 			GUI.initRadio(off);
 			GUI.initRadio(purple);
 			GUI.initRadio(blue);
-			
-			// initializes check boxes
-			GUI.initCheckBox(caloriesCheckBox);
-			GUI.initCheckBox(fatCheckBox);
-			GUI.initCheckBox(carbohydrateCheckBox);
-			GUI.initCheckBox(fiberCheckBox);
-			GUI.initCheckBox(proteinCheckBox);
+			GUI.initRadio(proteinCheckBox);
+			GUI.initRadio(fiberCheckBox);
+			GUI.initRadio(carbohydrateCheckBox);
+			GUI.initRadio(fatCheckBox);
+			GUI.initRadio(caloriesCheckBox);
+			GUI.initRadio(greaterEqualThan);
+			GUI.initRadio(greaterThan);
+			GUI.initRadio(lessEqualThan);
+			GUI.initRadio(lessThan);
+			GUI.initRadio(equalTo);
 			
 			// initializes labels
 			GUI.initLabel(calories, 1);
@@ -202,10 +203,12 @@ public class Main extends Application {
 			foodInfo.setStyle("-fx-font: 40 arial;");
 		
 			saveMeal.setPrefWidth(850);
+			applyQuery.setPrefWidth(850);
 			createMealTitleLabel.setFont(Font.font("arial", FontWeight.BOLD, 36));
 			createMealTitleLabel.setPrefWidth(850);
 			optionsField.setPrefWidth(400);
 			createMealField.setPrefWidth(400);
+			ruleList.setPrefWidth(400);
 			
 			// sets spacing within button box
 			HBox.setMargin(saveFood, new Insets(14));
@@ -240,23 +243,35 @@ public class Main extends Application {
 			rightPane.getChildren().addAll(new HBox(mealListTitle, analyzeMeal), mealPane);
 			
 			// Adds radiobuttons to Toggle groups
-			nameSort.setToggleGroup(sortGroup);
-			caloriesSort.setToggleGroup(sortGroup);
-			fatSort.setToggleGroup(sortGroup);
-			carbohydrateSort.setToggleGroup(sortGroup);
-			fiberSort.setToggleGroup(sortGroup);
-			proteinSort.setToggleGroup(sortGroup);
 			badgerRed.setToggleGroup(colorGroup);
 			green.setToggleGroup(colorGroup);
 			off.setToggleGroup(colorGroup);
 			purple.setToggleGroup(colorGroup);
 			blue.setToggleGroup(colorGroup);
+			caloriesCheckBox.setToggleGroup(ruletypeGroup);
+			fiberCheckBox.setToggleGroup(ruletypeGroup);
+			proteinCheckBox.setToggleGroup(ruletypeGroup);
+			fatCheckBox.setToggleGroup(ruletypeGroup);
+			carbohydrateCheckBox.setToggleGroup(ruletypeGroup);
+			greaterEqualThan.setToggleGroup(ruleruleGroup);
+			greaterThan.setToggleGroup(ruleruleGroup);
+			lessEqualThan.setToggleGroup(ruleruleGroup);
+			lessThan.setToggleGroup(ruleruleGroup);
+			equalTo.setToggleGroup(ruleruleGroup);
 			
 			// putting all four of our panes into root 
 			root.setLeft(leftPane);
 			root.setCenter(foodInfo);
 			root.setRight(rightPane);
 			root.setBottom(bottomBox);
+			
+			// add rules to the ruleBox
+			nameRuleBox.getChildren().addAll(caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
+					fiberCheckBox, proteinCheckBox);
+			
+			ruleRuleBox.getChildren().addAll(greaterEqualThan, greaterThan, equalTo, lessEqualThan, lessThan);
+			
+			ruleBox.getChildren().addAll(nameRuleBox, ruleRuleBox);
 			
 			// adds label/field to LoadFoodBox
 			loadFoodBox.getChildren().addAll(loadFileLabel, loadFoodField);
@@ -271,9 +286,7 @@ public class Main extends Application {
 			mealListAddBox.getChildren().addAll(createMealTitleLabel, new HBox(mealNameLabel, optionsField), createMealFieldBox, currentMealLabel, mealScrollPane, saveMeal);
 			
 			// adds necessary checkboxes to queryBox
-			queryBox.getChildren().addAll(queryLabel, caloriesCheckBox, fatCheckBox, carbohydrateCheckBox,
-					fiberCheckBox, proteinCheckBox, sortLabel, nameSort, caloriesSort, fatSort, carbohydrateSort,
-					fiberSort, proteinSort);
+			queryBox.getChildren().addAll(queryLabel, ruleBox, ruleList, applyQuery);
 			
 			// adds necessary labels/text fields to addFoodScreen
 			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName), 
@@ -283,6 +296,7 @@ public class Main extends Application {
 			// initializes list of items in meal, adds it to MealListAdd
 			mealScrollPane.setPrefHeight(400);
 			mealScrollPane.setContent(mealScrollList);
+			ruleList.setPrefHeight(400);
 			
 			// Adds all radio buttons to color list
 			colorBox.getChildren().addAll(badgerRed, blue, purple, green, off);
@@ -301,6 +315,7 @@ public class Main extends Application {
 			blue.setOnAction(MealEventHandler.colorHandler);
 			addFoodButton.setOnAction(MealEventHandler.addFoodScreenHandler);
 			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
+			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
 			
 			// displays the stage
 			primaryStage.show();
