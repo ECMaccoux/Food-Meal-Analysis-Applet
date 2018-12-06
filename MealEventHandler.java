@@ -32,7 +32,7 @@ public class MealEventHandler {
 	/**
 	 * 
 	 */
-	static EventHandler<ActionEvent> foodInfoHandler = new EventHandler<ActionEvent>() {
+	static EventHandler<ActionEvent> loadFoodHandler = new EventHandler<ActionEvent>() {
 	    @Override
 	    public void handle(ActionEvent event) {
 	    	FileChooser chooser = new FileChooser();
@@ -58,8 +58,32 @@ public class MealEventHandler {
 				dialog.showAndWait();
 				e.printStackTrace();
 	    	}
+	    	
 	        event.consume();
 	    }
+	};
+	
+	static EventHandler<ActionEvent> saveFoodHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			FileChooser chooser = new FileChooser();
+			chooser.setTitle("Save Food List File");
+			
+			Stage chooserStage = new Stage();
+			File file = chooser.showSaveDialog(chooserStage);
+			
+			try {
+				Main.foodDataList.saveFoodItems(file.getPath());
+			} catch (NullPointerException e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Internal Error, please try again\n\n"
+						+ "If problem persists, please contact system architecture by email: emaccoux@wisc.edu");
+				dialog.showAndWait();
+				e.printStackTrace();
+	    	}
+			
+	        event.consume();
+		}
 	};
 	
 	/**

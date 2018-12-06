@@ -289,7 +289,8 @@ public class Main extends Application {
 			colorBox.getChildren().addAll(badgerRed, blue, purple, green, off);
 						
 			// sets actions for each buttons
-			loadFood.setOnAction(MealEventHandler.foodInfoHandler);
+			loadFood.setOnAction(MealEventHandler.loadFoodHandler);
+			saveFood.setOnAction(MealEventHandler.saveFoodHandler);
 			options.setOnAction(MealEventHandler.optionsHandler);
 			createMeal.setOnAction(MealEventHandler.createMealHandler);
 			addMealButton.setOnAction(MealEventHandler.addMealHandler);
