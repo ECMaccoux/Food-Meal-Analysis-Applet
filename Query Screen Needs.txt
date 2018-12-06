@@ -1,0 +1,8 @@
+- Query screen must have:
+  - Text field for name
+  - Each nutrient must have following:
+    - Way to select <=, ==, or >=
+    - Text field for specific number (ex: 2 grams)
+  - "Apply Query" button
+- List on left side must update after "Apply Query" button is pushed
+- There must be some way to remove a query rule once it has been added
