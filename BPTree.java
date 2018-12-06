@@ -49,9 +49,13 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     }
     
     
-    /*
-     * (non-Javadoc)
-     * @see BPTreeADT#insert(java.lang.Object, java.lang.Object)
+    /**
+     * Inserts the key and value in the appropriate nodes in the tree
+     * 
+     * Note: key-value pairs with duplicate keys can be inserted into the tree.
+     * 
+     * @param key
+     * @param value
      */
     @Override
     public void insert(K key, V value) {
@@ -59,9 +63,26 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
     }
     
     
-    /*
-     * (non-Javadoc)
-     * @see BPTreeADT#rangeSearch(java.lang.Object, java.lang.String)
+    /**
+     * Gets the values that satisfy the given range 
+     * search arguments.
+     * 
+     * Value of comparator can be one of these: 
+     * "<=", "==", ">="
+     * 
+     * Example:
+     *     If given key = 2.5 and comparator = ">=":
+     *         return all the values with the corresponding 
+     *      keys >= 2.5
+     *      
+     * If key is null or not found, return empty list.
+     * If comparator is null, empty, or not according
+     * to required form, return empty list.
+     * 
+     * @param key to be searched
+     * @param comparator is a string
+     * @return list of values that are the result of the 
+     * range search; if nothing found, return empty list
      */
     @Override
     public List<V> rangeSearch(K key, String comparator) {
@@ -74,10 +95,11 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         }
     }
     
-    
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#toString()
+
+    /**
+     * Returns a string representation for the tree
+     * 
+     * @return a string representation
      */
     @Override
     public String toString() {

@@ -288,7 +288,7 @@ public class Main extends Application {
 			// Adds all radio buttons to color list
 			colorBox.getChildren().addAll(badgerRed, blue, purple, green, off);
 						
-			// sets actions for each buttons
+			// sets actions for each button
 			loadFood.setOnAction(MealEventHandler.loadFoodHandler);
 			saveFood.setOnAction(MealEventHandler.saveFoodHandler);
 			options.setOnAction(MealEventHandler.optionsHandler);
@@ -309,7 +309,7 @@ public class Main extends Application {
 		} catch(Exception e) {
 			Alert dialog = new Alert(Alert.AlertType.ERROR);
 			dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
-					+ "If problem persists, please contact system architecture by email: jpientka@wisc.edu");
+					+ "If problem persists, please contact system administrator by email: jpientka@wisc.edu");
 			dialog.showAndWait();
 			primaryStage.hide();
 			e.printStackTrace();
