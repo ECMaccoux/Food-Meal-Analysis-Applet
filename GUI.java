@@ -1,5 +1,6 @@
 package application;
 
+// imports
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -22,9 +23,7 @@ import javafx.util.Duration;
 
 /**
  * GUI class
- * 
  * @author Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
- *
  */
 public class GUI {
 	public static DropShadow dropShadow = new DropShadow();
@@ -33,6 +32,7 @@ public class GUI {
 	public static FadeTransition fadeAnimation;
 	
 	/**
+	 *  instantiate the public static objects in the Main class
 	 *  sets drop shadow of button
 	 */
 	public static void initGUI() {
@@ -66,7 +66,7 @@ public class GUI {
 	/**
 	 * Initializes button
 	 * 
-	 * @param button
+	 * @param button the button that will be initiated
 	 */
 	public static void initButton(Button button) {
 		
@@ -116,7 +116,6 @@ public class GUI {
 			public void handle(MouseEvent e) {
 	        	if(dropShadowBool) {
 					label.setTextFill(color);
-					label.setEffect(dropShadow);
 	        	}
 			}
 		});
@@ -125,7 +124,6 @@ public class GUI {
 		label.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				label.setEffect(null);
 				label.setTextFill(Color.BLACK);
 			}
 		});
@@ -181,24 +179,6 @@ public class GUI {
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		scrollPane.setStyle("-fx-border-color:crimson; -fx-border-width:0;");
-		
-		// when mouse enters area of scroll pane, show drop shadow
-		scrollPane.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-			@Override 
-			public void handle(MouseEvent e) {
-	        	if(dropShadowBool) {
-					scrollPane.setEffect(dropShadow);
-	        	}
-			}
-		});
-		
-		// when mouse exits area of scroll pane, hide drop shadow
-		scrollPane.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent e) {
-				scrollPane.setEffect(null);
-			}
-		});
 	}
 	
 	/**
@@ -234,6 +214,10 @@ public class GUI {
 		});
 	}
 	
+	/**
+	 * 
+	 * @param radioButton
+	 */
 	public static void initRadio(RadioButton radioButton) {
 		
 		// sets font, width, and style of check box

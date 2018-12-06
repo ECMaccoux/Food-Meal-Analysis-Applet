@@ -21,7 +21,6 @@ import javafx.scene.text.FontWeight;
 
 /**
  * Main class
- * 
  * @author Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
  *
  */
@@ -307,6 +306,7 @@ public class Main extends Application {
 			primaryStage.show();
 			
 		} catch(Exception e) {
+			// Alert dialog that will display if an error is thrown in the main body
 			Alert dialog = new Alert(Alert.AlertType.ERROR);
 			dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
 					+ "If problem persists, please contact system administrator by email: jpientka@wisc.edu");

@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  */
 public class MealEventHandler {
 	
-	// intfoodInfoScene: 	0 = default
+	// int foodInfoScene: 	0 = default
 	//						1 = load food
 	//						2 = analyze meal
 	//						3 = create meal
@@ -30,7 +30,9 @@ public class MealEventHandler {
 	//						6 = add item
 	
 	/**
+	 * Handler that will be used by the load button.
 	 * 
+	 * Pops up a browser that will search through the hard drive.
 	 */
 	static EventHandler<ActionEvent> loadFoodHandler = new EventHandler<ActionEvent>() {
 	    @Override
@@ -63,6 +65,11 @@ public class MealEventHandler {
 	    }
 	};
 	
+	/**
+	 * Handler that will be used by the save button.
+	 * 
+	 * Saves all the in the current list in a foodItems.csv file in the any folder.
+	 */
 	static EventHandler<ActionEvent> saveFoodHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
@@ -87,7 +94,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the options button.
 	 * 
+	 * Opens up the options menu
 	 */
 	static EventHandler<ActionEvent> optionsHandler = new EventHandler<ActionEvent>() {
 		@Override
@@ -95,6 +104,7 @@ public class MealEventHandler {
 			if(Main.foodInfoScene == 2) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
+
 			}else {
 				Main.root.setCenter(Main.optionsBox);
 				Main.foodInfoScene = 2;
@@ -104,7 +114,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the create meal button.
 	 * 
+	 * Opens up the create meal menu
 	 */
 	static EventHandler<ActionEvent> createMealHandler = new EventHandler<ActionEvent>() {
 		@Override
@@ -121,7 +133,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the add button in the create meal button.
 	 * 
+	 * Opens up the add button in the create meal menu
 	 */
 	static EventHandler<ActionEvent> addMealHandler = new EventHandler<ActionEvent>() {
 		@Override
@@ -136,7 +150,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the scroll Meal button.
 	 * 
+	 * Opens up the scroll Meal menu.
 	 */
 	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
 		
@@ -179,7 +195,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the query button.
 	 * 
+	 * Opens up the query menu.
 	 */
 	static EventHandler<ActionEvent> queryHandler = new EventHandler<ActionEvent>() {
 		
@@ -197,7 +215,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the add Food Screen button.
 	 * 
+	 * Opens up the add Food Screen menu.
 	 */
 	static EventHandler<ActionEvent> addFoodScreenHandler = new EventHandler<ActionEvent>() {
 		@Override
@@ -214,7 +234,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for the color radio buttons.
 	 * 
+	 * Opens up the color radio buttons.
 	 */
 	static EventHandler<ActionEvent> colorHandler = new EventHandler<ActionEvent>() {
 		
@@ -246,7 +268,9 @@ public class MealEventHandler {
 	};
 	
 	/**
+	 * Handler for save meal buttons.
 	 * 
+	 * Opens up the save meal buttons.
 	 */
 	static EventHandler<ActionEvent> saveMealHandler = new EventHandler<ActionEvent>() {
 		
