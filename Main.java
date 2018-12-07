@@ -7,15 +7,20 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
@@ -37,7 +42,7 @@ public class Main extends Application {
 	public static ScrollPane mealScrollPane;
 	public static VBox mealScrollList;
 	public static TextField optionsField;
-	public static TextField createMealField;
+	public static Label createMealField;
 	public static ScrollPane ruleScrollPane;
 	public static Label food;
 	public static FoodData foodDataList;
@@ -224,6 +229,9 @@ public class Main extends Application {
 			
 			optionsField.setPrefWidth(400);
 			createMealField.setPrefWidth(400);
+			createMealField.setPrefHeight(30);
+			createMealField.setBorder(new Border(new BorderStroke(Color.BLACK,
+					BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 			ruleScrollPane.setPrefWidth(400);
 			
 			// sets spacing within button box

@@ -48,7 +48,7 @@ public class GUI {
 		Main.mealScrollPane = new ScrollPane();
 		Main.mealScrollList = new VBox();
 		Main.optionsField = new TextField();
-		Main.createMealField = new TextField();
+		Main.createMealField = new Label();
 		Main.food = new Label();
 		Main.foodDataList = new FoodData();
 		Main.foodList = new VBox();
