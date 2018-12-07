@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -154,16 +156,16 @@ public class MealEventHandler {
 	 * 
 	 * Opens up the scroll Meal menu.
 	 */
-	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
+	static EventHandler<ActionEvent> scrollFoodHandler = new EventHandler<ActionEvent>() {
 		
 		@Override
 		public void handle(ActionEvent event) {
-			if(Main.foodInfoScene == 4 && ("Food: " + ((Button) event.getSource()).getText()).equalsIgnoreCase(Main.food.getText())) {
+			if (Main.foodInfoScene == 4 && ("Food: " + ((Button) event.getSource()).getText()).equalsIgnoreCase(Main.food.getText())) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
-			}else if(Main.foodInfoScene == 3){
+			} else if(Main.foodInfoScene == 3){
 				Main.createMealField.setText(((Button) event.getSource()).getText());
-			}else {
+			} else {
 				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
 				FoodItem itemToFind = itemList.get(0);
 				
@@ -191,6 +193,13 @@ public class MealEventHandler {
 				Main.foodInfoScene = 4;
 			}
 			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			
 		}
 	};
 	
@@ -293,6 +302,159 @@ public class MealEventHandler {
 		
 		@Override
 		public void handle(ActionEvent event) {
+			Main.queryFoodDataList = new FoodData();
+			Main.queryFoodList.getChildren().clear();
+			
+			if(Main.ruleList.getChildren().size() == 0) {
+				Main.foodPane.setContent(Main.foodList);
+				
+				event.consume();
+				return;
+			}
+			
+			List<String> listOfRules = new ArrayList<String>();
+			List<String> listOfNames = new ArrayList<String>();
+			
+			for(int i = 0; i < Main.ruleList.getChildren().size(); i++) {
+				Label currentRule = (Label) ((HBox) Main.ruleList.getChildren().get(i)).getChildren().get(0);
+				String[] tokens = currentRule.getText().split(" ");
+				
+				if(tokens[0].equals("calories") || tokens[0].equals("fat") || tokens[0].equals("carbohydrate")
+						|| tokens[0].equals("fiber") || tokens[0].equals("protein")) {
+					listOfRules.add(currentRule.getText());
+				} else {
+					listOfNames.add(currentRule.getText());
+				}
+			}
+			
+			List<FoodItem> foodRuleResults = Main.foodDataList.filterByNutrients(listOfRules);
+			List<ArrayList<FoodItem>> foodNameResults = new ArrayList<ArrayList<FoodItem>>();
+			
+			for(int i = 0; i < listOfNames.size(); i++) {
+				foodNameResults.add((ArrayList<FoodItem>) Main.foodDataList.filterByName(listOfNames.get(i)));
+			}
+			
+			if (foodRuleResults.size() > 0) {
+				for(int i = 0; i < foodRuleResults.size(); i++) {
+					boolean inAllLists = true;
+					
+					for(int j = 0; j < foodNameResults.size(); j++) {
+						if(!foodNameResults.get(j).contains(foodRuleResults.get(i))) {
+							inAllLists = false;
+						}
+					}
+					
+					if(inAllLists) {
+						Main.queryFoodDataList.addFoodItem(foodRuleResults.get(i));
+						Button newItem = new Button(foodRuleResults.get(i).getName());
+			    		GUI.initFoodItemButton(newItem, foodRuleResults.get(i));
+			    		Main.queryFoodList.getChildren().add(newItem);
+					}
+				}
+			} else {
+				for(int i = 0; i < foodNameResults.get(0).size(); i++) {
+					boolean inAllLists = true;
+					
+					for(int j = 0; j < foodNameResults.size(); j++) {
+						if(!foodNameResults.get(j).contains(foodNameResults.get(0).get(i))) {
+	    					inAllLists = false;
+	    				}
+					}
+					
+					if(inAllLists) {
+						Main.queryFoodDataList.addFoodItem(foodNameResults.get(0).get(i));
+						Button newItem = new Button(foodNameResults.get(0).get(i).getName());
+			    		GUI.initFoodItemButton(newItem, foodNameResults.get(0).get(i));
+			    		Main.queryFoodList.getChildren().add(newItem);
+					}
+				}
+			}
+			
+			Main.foodPane.setContent(Main.queryFoodList);
+			
+			event.consume();
+		}
+	};
+	
+	/**
+	 * 
+	 */
+	static EventHandler<ActionEvent> addRuleHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			String nameToAdd = "";
+			
+			if(!Main.nameQueryField.getText().equals("")) {
+				nameToAdd = Main.nameQueryField.getText();
+			}
+			
+			if(!nameToAdd.equals("")) {
+				Button removeButton = new Button("Remove");
+				removeButton.setOnAction(MealEventHandler.removeRuleHandler);
+				Main.ruleList.getChildren().add(new HBox(new Label(nameToAdd), removeButton));
+			}
+			
+			String ruleToAdd = "";
+			
+			if(Main.ruleTypeGroup.getToggles().get(0).isSelected()) {
+				ruleToAdd += "calories ";
+			} else if(Main.ruleTypeGroup.getToggles().get(1).isSelected()) {
+				ruleToAdd += "fat ";
+			} else if(Main.ruleTypeGroup.getToggles().get(2).isSelected()) {
+				ruleToAdd += "carbohydrate ";
+			} else if(Main.ruleTypeGroup.getToggles().get(3).isSelected()) {
+				ruleToAdd += "fiber ";
+			} else if(Main.ruleTypeGroup.getToggles().get(4).isSelected()) {
+				ruleToAdd += "protein ";
+			} else {
+				event.consume();
+				return;
+			}
+			
+			if(Main.ruleRuleGroup.getToggles().get(0).isSelected()) {
+				ruleToAdd += ">= ";
+			} else if(Main.ruleRuleGroup.getToggles().get(1).isSelected()) {
+				ruleToAdd += "== ";
+			} else if(Main.ruleRuleGroup.getToggles().get(2).isSelected()) {
+				ruleToAdd += "<= ";
+			} else {
+				event.consume();
+				return;
+			}
+			
+			if(!Main.queryNumberField.getText().equals("")) { 
+				double numberToAdd = 0.0;
+				
+				try {
+					numberToAdd = Double.parseDouble(Main.queryNumberField.getText());
+				} catch (NumberFormatException e) {
+					event.consume();
+					return;
+				}
+				
+				if(numberToAdd >= 0.0) {
+					ruleToAdd += numberToAdd;
+				} else {
+					event.consume();
+					return;
+				}
+			} else {
+				event.consume();
+				return;
+			}
+			
+			Button removeButton = new Button("Remove");
+			removeButton.setOnAction(MealEventHandler.removeRuleHandler);
+			Main.ruleList.getChildren().add(new HBox(new Label(ruleToAdd), removeButton));
+			
+			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> removeRuleHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			Main.ruleList.getChildren().remove(((Button) event.getSource()).getParent());
 			
 			event.consume();
 		}

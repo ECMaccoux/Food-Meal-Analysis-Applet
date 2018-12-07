@@ -54,7 +54,7 @@ public class GUI {
 		Main.foodList = new VBox();
 		Main.addFoodScreen = new VBox();
 		Main.mealInfoScreen = new VBox();
-		Main.ruleList = new ScrollPane();
+		Main.ruleScrollPane = new ScrollPane();
 		
 		dropShadow.setRadius(4.5);
 		dropShadow.setOffsetX(2);
@@ -139,7 +139,7 @@ public class GUI {
 		
 		// sets text color, action, and border for button
 		button.setTextFill(Color.BLACK);
-		button.setOnAction(MealEventHandler.scrollMealHandler);
+		button.setOnAction(MealEventHandler.scrollFoodHandler);
 		button.setBorder(null);
 		button.setPrefWidth(200);
 		button.setMaxWidth(200);
@@ -255,7 +255,7 @@ public class GUI {
 		
 		// sets text color, action, and border for button
 		button.setTextFill(Color.BLACK);
-		button.setOnAction(MealEventHandler.scrollMealHandler);
+		button.setOnAction(MealEventHandler.scrollFoodHandler);
 		button.setBorder(null);
 		button.setPrefWidth(200);
 		button.setMaxWidth(200);

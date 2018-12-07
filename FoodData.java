@@ -30,6 +30,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
     public FoodData() {
         foodItemList = new ArrayList<FoodItem>();
         
+        // creates HashMap and populates it with BPTree objects corresponding to each nutrient type
         indexes = new HashMap<String, BPTree<Double, FoodItem>>();
         indexes.put("calories", new BPTree<Double, FoodItem>(3));
         indexes.put("fat", new BPTree<Double, FoodItem>(3));
@@ -65,9 +66,11 @@ public class FoodData implements FoodDataADT<FoodItem> {
     public void loadFoodItems(String filePath) {
     	
 		try {
+			// attempts to open file at filepath
 			File file = new File(filePath);
 			Scanner reader = new Scanner(file);
 			
+			// "resets" foodItemList and indexes
 			foodItemList.clear();
 	    	indexes.clear();
 	    	indexes.put("calories", new BPTree<Double, FoodItem>(3));
@@ -76,6 +79,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
 	        indexes.put("fiber", new BPTree<Double, FoodItem>(3));
 	        indexes.put("protein", new BPTree<Double, FoodItem>(3));
 			
+	        // loop goes through each line and parses them, using this information to create FoodItem objects
+	        // and add them to foodItemList
+	        
 			boolean finishedReading = false;
 			
 			while(reader.hasNextLine() && !finishedReading) {
@@ -115,6 +121,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
     public void saveFoodItems(String filename) {
     	try {
     		PrintWriter writer = new PrintWriter(filename);
+    		
+    		// loops through every item in foodItemList and adds its information to a String
+    		// which is then printed into the output file at path filename
     		
     		for(FoodItem item : foodItemList) {
     			String outputLine = "";
@@ -165,7 +174,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
         List<FoodItem> listToReturn = new ArrayList<FoodItem>();
         
         for(int i = 0; i < foodItemList.size(); i++) {
-        	if(foodItemList.get(i).getName().toLowerCase().equals(substring.toLowerCase())) {
+        	if(foodItemList.get(i).getName().toLowerCase().contains(substring.toLowerCase())) {
         		listToReturn.add(foodItemList.get(i));
         	}
         }
@@ -203,7 +212,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
     		listsOfNutrients.add(indexes.get(tokens[0].toLowerCase()).rangeSearch(Double.parseDouble(tokens[2]), tokens[1]));
     	}
     	
-    	if(listToReturn.size() == 0) {
+    	if(listsOfNutrients.size() == 0) {
     		return listToReturn;
     	} else {
     		for(int i = 0; i < listsOfNutrients.get(0).size(); i++) {
