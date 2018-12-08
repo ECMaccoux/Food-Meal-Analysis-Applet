@@ -37,13 +37,13 @@ public class GUI {
 	 */
 	public static void initGUI() {
 		Main.root = new BorderPane();
-		Main.mealList = new VBox();
+		//Main.mealList = new VBox();
 		Main.foodInfoScene = 0;
 		Main.foodInfo = new Label("Select Food");
 		Main.loadFoodBox = new HBox();
 		Main.optionsBox = new HBox();
-		Main.mealListAddBox = new VBox();
-		Main.createMealScreen = new VBox();
+		//Main.mealListAddBox = new VBox();
+		//Main.createMealScreen = new VBox();
 		Main.queryBox = new VBox();
 		Main.mealScrollPane = new ScrollPane();
 		Main.mealScrollList = new VBox();
@@ -53,7 +53,7 @@ public class GUI {
 		Main.foodDataList = new FoodData();
 		Main.foodList = new VBox();
 		Main.addFoodScreen = new VBox();
-		Main.mealInfoScreen = new VBox();
+		//Main.mealInfoScreen = new VBox();
 		Main.ruleScrollPane = new ScrollPane();
 		
 		dropShadow.setRadius(4.5);

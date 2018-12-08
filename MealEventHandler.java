@@ -127,7 +127,7 @@ public class MealEventHandler {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
 			}else {
-				Main.root.setCenter(Main.mealListAddBox);
+				//Main.root.setCenter(Main.mealListAddBox);
 				Main.foodInfoScene = 3;
 			}
 			event.consume();
@@ -139,14 +139,12 @@ public class MealEventHandler {
 	 * 
 	 * Opens up the add button in the create meal menu
 	 */
-	static EventHandler<ActionEvent> addMealHandler = new EventHandler<ActionEvent>() {
+	static EventHandler<ActionEvent> addToMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			if(Main.foodInfoScene == 3) {
-				Main.mealScrollList.getChildren().add(new Label(Main.createMealField.getText()));
-				Main.createMealField.setText("");
-				Main.mealScrollPane.setContent(Main.mealScrollList);
-			}
+			String[] tokens = Main.food.getText().split(" ");
+			
+			
 			event.consume();
 		}
 	};
@@ -186,10 +184,10 @@ public class MealEventHandler {
 				
 				Main.food.setFont(Font.font("Arial", 24));
 				
-				Main.createMealScreen.getChildren().clear();
-				Main.createMealScreen.getChildren().addAll(Main.food, calories, fat, carbohydrates, fiber, protein);
+				Main.foodInfoScreen.getChildren().clear();
+				Main.foodInfoScreen.getChildren().addAll(Main.food, calories, fat, carbohydrates, fiber, protein, Main.addToMealButton);
 				
-				Main.root.setCenter(Main.createMealScreen);
+				Main.root.setCenter(Main.foodInfoScreen);
 				Main.foodInfoScene = 4;
 			}
 			event.consume();
@@ -199,6 +197,7 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
+			String[] nameTokens = Main.food.getText().split(" ");
 			
 		}
 	};
@@ -288,7 +287,7 @@ public class MealEventHandler {
 			Button newMealButton = new Button(Main.optionsField.getText());
 			//TODO: add FoodData
 			GUI.initMealItemButton(newMealButton, new FoodData());
-			Main.mealList.getChildren().add(newMealButton);
+			//Main.mealList.getChildren().add(newMealButton);
 			event.consume();
 		}
 	};

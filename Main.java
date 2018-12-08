@@ -36,8 +36,8 @@ public class Main extends Application {
 	public static Label foodInfo;
 	public static HBox loadFoodBox;
 	public static HBox optionsBox;
-	public static VBox mealListAddBox;
-	public static VBox createMealScreen;
+	//public static VBox mealListAddBox;
+	//public static VBox createMealScreen;
 	public static VBox queryBox;
 	public static ScrollPane mealScrollPane;
 	public static VBox mealScrollList;
@@ -48,8 +48,8 @@ public class Main extends Application {
 	public static FoodData foodDataList;
 	public static VBox foodList;
 	public static VBox addFoodScreen;
-	public static VBox mealInfoScreen;
-	public static VBox mealList;
+	//public static VBox mealInfoScreen;
+	//public static VBox mealList;
 	
 	// STUFF THAT ERIC ADDED
 	
@@ -62,6 +62,8 @@ public class Main extends Application {
 	public static ScrollPane foodPane = new ScrollPane();
 	public static VBox queryFoodList = new VBox();
 	public static FoodData queryFoodDataList = new FoodData();
+	public static VBox foodInfoScreen = new VBox();
+	public static Button addToMealButton = new Button("Add to Meal");
 
 	/**
 	 * Starts GUI
@@ -90,10 +92,10 @@ public class Main extends Application {
 			// creates all buttons
 			Button loadFood = new Button("Load Foods");
 			Button saveFood = new Button("Save Foods");
-			Button createMeal = new Button("Create Meal");
+			//Button createMeal = new Button("Create Meal");
 			Button options = new Button("Options");
 			Button query = new Button("Query");
-			Button addMealButton = new Button("Add");
+			Button removeMealButton = new Button("Remove from Meal");
 			Button addFoodButton = new Button("Add");
 			Button addFoodSubmit = new Button("Submit");
 			Button analyzeMeal = new Button("Analyze Meal");
@@ -103,18 +105,18 @@ public class Main extends Application {
 			// Initializes all buttons
 			GUI.initButton(loadFood);
 			GUI.initButton(saveFood);
-			GUI.initButton(createMeal);
+			//GUI.initButton(createMeal);
 			GUI.initButton(options);
 			GUI.initButton(query);
-			GUI.initButton(addMealButton);
+			GUI.initButton(addToMealButton);
+			GUI.initButton(removeMealButton);
 			GUI.initButton(addFoodSubmit);
 			GUI.initButton(saveMeal);
 			GUI.initButton(applyQuery);
 			
 			// initializes center area box
-			createMealScreen.setAlignment(Pos.TOP_CENTER);
-			addMealButton.setPrefWidth(45);
-			addMealButton.setFont(Font.font("Arial", 14));
+			//addToMealButton.setPrefWidth(45);
+			//addToMealButton.setFont(Font.font("Arial", 14));
 			
 			// initializes button box at bottom of screen
 			HBox bottomBox = new HBox();
@@ -127,7 +129,7 @@ public class Main extends Application {
 			VBox nameRuleBox = new VBox();
 			VBox ruleRuleBox = new VBox();
 			
-			bottomBox.getChildren().addAll(loadFood, saveFood, createMeal, query, options);
+			bottomBox.getChildren().addAll(loadFood, saveFood/*, createMeal*/, query, options);
 			
 			// creates all labels
 			Label newFoodName = new Label("Name: ");
@@ -138,16 +140,16 @@ public class Main extends Application {
 			Label fiber = new Label("Fiber (Grams): ");
 			Label protein = new Label("Protein (Grams): ");
 			Label foodListTitle = new Label("Foods                             ");
-			Label mealListTitle = new Label("Meals                   ");
+			Label mealListTitle = new Label("Meal                    ");
 			Label queryLabel = new Label("Filter Query:");
 			Label loadFileLabel = new Label("Load File");
 			Label addFoodLabel = new Label("Add New Food");
 			Label optionsLabel = new Label("Options: ");
-			Label createMealTitleLabel = new Label("Create New Meal");
+			//Label createMealTitleLabel = new Label("Create New Meal");
 			Label addFoodTitleLabel = new Label("Add New Food");
-			Label currentMealLabel = new Label("Current Meal");
+			//Label currentMealLabel = new Label("Current Meal");
 			Label sortLabel = new Label("Sort By:");
-			Label mealNameLabel = new Label("Meal Name: ");
+			//Label mealNameLabel = new Label("Meal Name: ");
 						
 			// creates all radio buttons
 			RadioButton badgerRed = new RadioButton("Badger Red");
@@ -204,12 +206,12 @@ public class Main extends Application {
 			GUI.initLabel(loadFileLabel, 0);
 			GUI.initLabel(addFoodLabel, 0);
 			GUI.initLabel(optionsLabel, 0);
-			GUI.initLabel(createMealTitleLabel, 0);
-			GUI.initLabel(currentMealLabel, 0);
+			//GUI.initLabel(createMealTitleLabel, 0);
+			//GUI.initLabel(currentMealLabel, 0);
 			GUI.initLabel(sortLabel, 0);
 			GUI.initLabel(newFoodName, 1);
 			GUI.initLabel(addFoodTitleLabel, 1);
-			GUI.initLabel(mealNameLabel, 0);
+			//GUI.initLabel(mealNameLabel, 0);
 			GUI.initLabel(nameQueryLabel, 0);
 			
 			// sets up food info screen
@@ -222,8 +224,8 @@ public class Main extends Application {
 			nameQueryBox.getChildren().addAll(nameQueryLabel, nameQueryField);
 			saveMeal.setPrefWidth(850);
 			applyQuery.setPrefWidth(850);
-			createMealTitleLabel.setFont(Font.font("arial", FontWeight.BOLD, 36));
-			createMealTitleLabel.setPrefWidth(850);
+			//createMealTitleLabel.setFont(Font.font("arial", FontWeight.BOLD, 36));
+			//createMealTitleLabel.setPrefWidth(850);
 			queryLabel.setFont(Font.font("arial", FontWeight.BOLD, 36));
 			queryLabel.setPrefWidth(850);
 			
@@ -237,7 +239,7 @@ public class Main extends Application {
 			// sets spacing within button box
 			HBox.setMargin(saveFood, new Insets(14));
 			HBox.setMargin(loadFood, new Insets(14));
-			HBox.setMargin(createMeal, new Insets(14));
+			//HBox.setMargin(createMeal, new Insets(14));
 			HBox.setMargin(options, new Insets(14));
 			HBox.setMargin(query, new Insets(14));
 			HBox createMealFieldBox = new HBox();
@@ -248,7 +250,7 @@ public class Main extends Application {
 			
 			// creates a scrolling pane that contains the list of meals
 			ScrollPane mealPane = new ScrollPane();
-			mealPane.setContent(mealList);
+			//mealPane.setContent(mealList);
 			mealPane.setPrefHeight(700);
 			
 			// initializes the scroll panes
@@ -301,10 +303,10 @@ public class Main extends Application {
 			optionsBox.getChildren().addAll(optionsLabel, optionsField, colorBox);
 			
 			// adds label/field/button to CreateMealFieldBox
-			createMealFieldBox.getChildren().addAll(addFoodLabel, createMealField, addMealButton);
+			createMealFieldBox.getChildren().addAll(addFoodLabel, createMealField, addToMealButton);
 			
 			// adds label/field/box/label to MealListAdd (create meal screen)
-			mealListAddBox.getChildren().addAll(createMealTitleLabel, new HBox(mealNameLabel, optionsField), createMealFieldBox, currentMealLabel, mealScrollPane, saveMeal);
+			//mealListAddBox.getChildren().addAll(createMealTitleLabel, new HBox(mealNameLabel, optionsField), createMealFieldBox, currentMealLabel, mealScrollPane, saveMeal);
 			
 			// adds necessary checkboxes to queryBox
 			queryBox.getChildren().addAll(queryLabel, nameQueryBox, ruleBox, ruleScrollPane, applyQuery);
@@ -326,8 +328,8 @@ public class Main extends Application {
 			loadFood.setOnAction(MealEventHandler.loadFoodHandler);
 			saveFood.setOnAction(MealEventHandler.saveFoodHandler);
 			options.setOnAction(MealEventHandler.optionsHandler);
-			createMeal.setOnAction(MealEventHandler.createMealHandler);
-			addMealButton.setOnAction(MealEventHandler.addMealHandler);
+			//createMeal.setOnAction(MealEventHandler.createMealHandler);
+			addToMealButton.setOnAction(MealEventHandler.addToMealHandler);
 			query.setOnAction(MealEventHandler.queryHandler);
 			badgerRed.setOnAction(MealEventHandler.colorHandler);
 			green.setOnAction(MealEventHandler.colorHandler);
@@ -351,6 +353,9 @@ public class Main extends Application {
 			HBox.setMargin(queryAddRuleButton, new Insets(10));
 			queryAddRuleButton.setOnAction(MealEventHandler.addRuleHandler);
 			ruleScrollPane.setContent(ruleList);
+			
+			foodInfoScreen.setAlignment(Pos.TOP_CENTER);
+			addToMealButton.setOnAction(MealEventHandler.addToMealHandler);
 			
 			// END STUFF THAT ERIC HAS ADDED
 			
