@@ -74,6 +74,7 @@ public class Main extends Application {
 	public static TextField addFoodFibers = new TextField();
 	public static TextField addFoodProteins = new TextField();
 	public static FoodData mealFoodDataList = new FoodData();
+	public static VBox analyzeMealScreen = new VBox();
 
 	/**
 	 * Starts GUI
@@ -367,6 +368,8 @@ public class Main extends Application {
 			addToMealButton.setOnAction(MealEventHandler.addToMealHandler);
 			
 			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
+			
+			analyzeMeal.setOnAction(MealEventHandler.analyzeMealHandler);
 			
 			// END STUFF THAT ERIC HAS ADDED
 			

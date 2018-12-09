@@ -28,12 +28,11 @@ import javafx.stage.Stage;
 public class MealEventHandler {
 	
 	// int foodInfoScene: 	0 = default
-	//						1 = load food
-	//						2 = analyze meal
-	//						3 = create meal
+	//						2 = options
+	//						3 = create meal (unneeded)
 	//						4 = food info
 	// 						5 = query screen
-	//						6 = add item
+	//						6 = add FoodItem
 	
 	/**
 	 * Handler that will be used by the load button.
@@ -164,10 +163,11 @@ public class MealEventHandler {
 		@Override
 		public void handle(ActionEvent event) {
 			
-			FoodItem itemToAdd = Main.foodDataList.filterByID(Main.currID);
+			//FoodItem itemToAdd = Main.foodDataList.filterByID(Main.currID);
+			FoodItem itemToAdd = Main.currFood;
 			Main.mealFoodDataList.addFoodItem(itemToAdd);
 			
-			Button newFoodButton = new Button(itemToAdd.getName());
+			MealButton newFoodButton = new MealButton(itemToAdd.getName(), itemToAdd);
 			GUI.initFoodItemButton(newFoodButton, itemToAdd);
 
 			VBox newVBox = (VBox) Main.mealPane.getContent();
@@ -194,11 +194,8 @@ public class MealEventHandler {
 			} else if(Main.foodInfoScene == 3){
 				Main.createMealField.setText(((Button) event.getSource()).getText());
 			} else {
-				Main.currID = ((Button) event.getSource()).getId();
-				//List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
-				//FoodItem itemToFind = itemList.get(0);
-				FoodItem itemToFind = Main.foodDataList.filterByID(Main.currID);
-				//Main.currFood = ((MealButton) event.getSource()).getFoodItem();
+				Main.currFood = ((MealButton) event.getSource()).getFoodItem();
+				FoodItem itemToFind = Main.currFood;
 				
 				Main.food.setText("Food: " + itemToFind.getName());
 				Label calories = new Label("Calories: " + itemToFind.getNutrientValue("calories"));
@@ -532,6 +529,15 @@ public class MealEventHandler {
 		public void handle(ActionEvent event) {
 			int temp = 0;
 			String uniqueID = UUID.randomUUID().toString();
+			
+			if(Main.addFoodName.getText().equals("")) {
+				Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Empty food name detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			
 			FoodItem newFoodItem = new FoodItem(uniqueID, Main.addFoodName.getText());
 			
 			try {
@@ -543,7 +549,7 @@ public class MealEventHandler {
 					dialog.showAndWait();
 					return;
 				}
-			}catch(Exception e) {
+			} catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
 				dialog.setHeaderText("Alphanumerics in Calories detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
@@ -561,7 +567,7 @@ public class MealEventHandler {
 					dialog.showAndWait();
 					return;
 				}
-			}catch(Exception e) {
+			} catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
 				dialog.setHeaderText("Alphanumerics in Fats detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
@@ -630,6 +636,63 @@ public class MealEventHandler {
     		Main.foodList.getChildren().add(newItem);
 			
 			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> analyzeMealHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			if(Main.foodInfoScene == 1) {
+				Main.root.setCenter(Main.foodInfo);
+				Main.foodInfoScene = 0;
+			}else {
+				Main.foodInfoScene = 1;
+			}
+			
+			if(Main.mealFoodDataList.getAllFoodItems().isEmpty()) {
+				Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Meal is empty.  Analysis cannot be completed. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			
+			double totalCals = 0.0;
+			double totalFats = 0.0;
+			double totalCarbs = 0.0;
+			double totalFiber = 0.0;
+			double totalProtein = 0.0;
+			List<FoodItem> mealFoodDataList = Main.mealFoodDataList.getAllFoodItems();
+			
+			for(FoodItem item : mealFoodDataList) {
+				totalCals += item.getNutrientValue("calories");
+				totalFats += item.getNutrientValue("fat");
+				totalCarbs += item.getNutrientValue("carbohydrate");
+				totalFiber += item.getNutrientValue("fiber");
+				totalProtein += item.getNutrientValue("protein");
+			}
+			
+			Label titleLabel = new Label("Meal Analysis");
+			Label caloriesLabel = new Label("Calories: " + totalCals);
+			Label fatLabel = new Label("Fat (Grams): " + totalFats);
+			Label carbohydratesLabel = new Label("Carbohydrates (Grams): " + totalCarbs);
+			Label fiberLabel = new Label("Fiber (Grams): " + totalFiber);
+			Label proteinLabel = new Label("Protein (Grams): " + totalProtein);
+			
+			GUI.initLabel(titleLabel, 1);
+			GUI.initLabel(caloriesLabel, 1);
+			GUI.initLabel(fatLabel, 1);
+			GUI.initLabel(carbohydratesLabel, 1);
+			GUI.initLabel(fiberLabel, 1);
+			GUI.initLabel(proteinLabel, 1);
+			
+			titleLabel.setFont(Font.font("Arial", 24));
+			
+			Main.analyzeMealScreen.getChildren().clear();
+			Main.analyzeMealScreen.getChildren().addAll(titleLabel, caloriesLabel, fatLabel, carbohydratesLabel,
+					fiberLabel, proteinLabel);
+			
+			Main.root.setCenter(Main.analyzeMealScreen);
 		}
 	};
 }
