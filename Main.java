@@ -342,6 +342,7 @@ public class Main extends Application {
 			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
 			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
 			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
+			clearMeal.setOnAction(MealEventHandler.clearMealHandler);
 			
 			// THIS IS THE STUFF THAT ERIC HAS ADDED
 			
