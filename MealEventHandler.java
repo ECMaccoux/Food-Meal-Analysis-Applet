@@ -48,17 +48,34 @@ public class MealEventHandler {
 	    	
 	    	Stage chooserStage = new Stage();
 	    	File file = chooser.showOpenDialog(chooserStage);
-	    	
+	    	int errors = 0;
+	    	boolean error = false;
 	    	try {
 	    		Main.foodDataList.loadFoodItems(file.getPath());
 		    	
 		    	List<FoodItem> list = Main.foodDataList.getAllFoodItems();
 		    	
 		    	for(int i = 0; i < list.size(); i++) {
-		    		Button newItem = new Button(list.get(i).getName());
-		    		GUI.initFoodItemButton(newItem, list.get(i));
-		    		Main.foodList.getChildren().add(newItem);
+					for(Node button : ((VBox) Main.foodPane.getContent()).getChildren()) {
+						if(((MealButton) button).getFoodItem().getID().equals(list.get(i).getID())) {
+							errors += 1;
+							error = true;
+						}else {
+							error = false;
+						}
+					}
+					if(!error) {
+			    		MealButton newItem = new MealButton(list.get(i).getName(), list.get(i));
+			    		GUI.initFoodItemButton(newItem, list.get(i));
+			    		Main.foodList.getChildren().add(newItem);
+					}
 		    	}
+				if(errors > 0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Duplicate Meal ID's detected. There was " + errors + " duplicates detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+				}
 	    	} catch (NullPointerException e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
 				dialog.setHeaderText("Internal Error, please try again\n\n"
@@ -146,12 +163,27 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> addToMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
+<<<<<<< HEAD
 			
 			FoodItem itemToAdd = Main.foodDataList.filterByID(Main.currID);
 			Main.mealFoodDataList.addFoodItem(itemToAdd);
 			
 			Button newFoodButton = new Button(itemToAdd.getName());
 			GUI.initFoodItemButton(newFoodButton, itemToAdd);
+=======
+			MealButton newFoodButton = new MealButton(Main.currFood.getName(), Main.currFood);
+			
+			List<FoodItem> itemList = Main.foodDataList.filterByName(Main.currFood.getName());
+			
+			FoodItem itemToFind = itemList.get(0);
+			GUI.initFoodItemButton(newFoodButton, itemToFind);
+//			for(Node button : ((VBox) Main.mealPane.getContent()).getChildren()) {
+//				if(((MealButton) button).getText() == Main.currFood.getName()) {
+//					//oof
+//				}
+//			}
+			GUI.initFoodItemButton(newFoodButton, itemToFind);
+>>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 
 			VBox newVBox = (VBox) Main.mealPane.getContent();
 			newVBox.getChildren().add(newFoodButton);
@@ -177,10 +209,17 @@ public class MealEventHandler {
 			} else if(Main.foodInfoScene == 3){
 				Main.createMealField.setText(((Button) event.getSource()).getText());
 			} else {
+<<<<<<< HEAD
 				Main.currID = ((Button) event.getSource()).getId();
 				//List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
 				//FoodItem itemToFind = itemList.get(0);
 				FoodItem itemToFind = Main.foodDataList.filterByID(Main.currID);
+=======
+				Main.currFood = ((MealButton) event.getSource()).getFoodItem();
+				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
+				FoodItem itemToFind = itemList.get(0);
+				Main.food.setText("Food: " + itemToFind.getName());
+>>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 				
 				Main.food.setText("Food: " + itemToFind.getName());
 				Label calories = new Label("Calories: " + itemToFind.getNutrientValue("calories"));
@@ -472,6 +511,7 @@ public class MealEventHandler {
 		}
 	};
 	
+<<<<<<< HEAD
 	static EventHandler<ActionEvent> removeMealItemHandler = new EventHandler<ActionEvent> () {
 		@Override
 		public void handle(ActionEvent event) {
@@ -495,6 +535,112 @@ public class MealEventHandler {
 			Button newItem = new Button(itemToAdd.getName());
     		GUI.initFoodItemButton(newItem, itemToAdd);
     		Main.foodList.getChildren().add(newItem);
+=======
+	static EventHandler<ActionEvent> clearMealHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			Main.mealPane.setContent(new VBox());
+			
+			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> submitNewFoodHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			int temp = 0;
+			FoodItem newFoodItem = new FoodItem(Main.addFoodID.getText(), Main.addFoodName.getText());
+			try {
+				temp = Integer.parseInt(Main.addFoodCarbs.getText());
+				if(temp<0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Negative Carbohydrates detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+					return;
+				}
+			}catch(Exception e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Alphanumerics in Carbohydrates detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			newFoodItem.addNutrient("carbohydrates", temp);
+			try {
+				temp = Integer.parseInt(Main.addFoodFibers.getText());
+				if(temp<0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Negative Fibers detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+					return;
+				}
+			}catch(Exception e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Alphanumerics in Fibers detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			newFoodItem.addNutrient("fiber", temp);
+			try {
+				temp = Integer.parseInt(Main.addFoodFats.getText());
+				if(temp<0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Negative Fats detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+					return;
+				}
+			}catch(Exception e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Alphanumerics in Fats detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			newFoodItem.addNutrient("fat", temp);
+			try {
+				temp = Integer.parseInt(Main.addFoodCals.getText());
+				if(temp<0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Negative Calories detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+					return;
+				}
+			}catch(Exception e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Alphanumerics in Calories detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			newFoodItem.addNutrient("calories", temp);
+			try {
+				temp = Integer.parseInt(Main.addFoodProteins.getText());
+				if(temp<0) {
+		    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("Negative Protiens detected. \n"
+							+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+					dialog.showAndWait();
+					return;
+				}
+			}catch(Exception e) {
+	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
+				dialog.setHeaderText("Alphanumerics in Protiens detected. \n"
+						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
+				dialog.showAndWait();
+				return;
+			}
+			newFoodItem.addNutrient("protiens", temp);
+    		MealButton newItem = new MealButton(Main.addFoodName.getText(), newFoodItem);
+    		GUI.initFoodItemButton(newItem, newFoodItem);
+    		Main.foodList.getChildren().add(newItem);
+			
+			event.consume();
+>>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 		}
 	};
 }
