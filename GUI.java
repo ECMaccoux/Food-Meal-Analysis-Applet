@@ -52,9 +52,11 @@ public class GUI {
 		Main.food = new Label();
 		Main.foodDataList = new FoodData();
 		Main.foodList = new VBox();
+		Main.currFood = "";
 		Main.addFoodScreen = new VBox();
 		//Main.mealInfoScreen = new VBox();
 		Main.ruleScrollPane = new ScrollPane();
+		Main.mealPane = new ScrollPane();
 		
 		dropShadow.setRadius(4.5);
 		dropShadow.setOffsetX(2);

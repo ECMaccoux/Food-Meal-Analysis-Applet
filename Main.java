@@ -50,7 +50,8 @@ public class Main extends Application {
 	public static VBox addFoodScreen;
 	//public static VBox mealInfoScreen;
 	//public static VBox mealList;
-	
+	public static ScrollPane mealPane;
+	public static String currFood;
 	// STUFF THAT ERIC ADDED
 	
 	public static ToggleGroup ruleTypeGroup = new ToggleGroup();
@@ -248,9 +249,7 @@ public class Main extends Application {
 			foodPane.setContent(foodList);
 			foodPane.setPrefHeight(700);
 			
-			// creates a scrolling pane that contains the list of meals
-			ScrollPane mealPane = new ScrollPane();
-			//mealPane.setContent(mealList);
+			mealPane.setContent(new VBox());
 			mealPane.setPrefHeight(700);
 			
 			// initializes the scroll panes

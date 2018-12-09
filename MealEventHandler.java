@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -142,8 +145,29 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> addToMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			String[] tokens = Main.food.getText().split(" ");
+			Button newFoodButton = new Button(Main.currFood);
 			
+			List<FoodItem> itemList = Main.foodDataList.filterByName(Main.currFood);
+			
+			FoodItem itemToFind = itemList.get(0);
+			GUI.initFoodItemButton(newFoodButton, itemToFind);
+			for(Node button : ((VBox) Main.mealPane.getContent()).getChildren()) {
+				if(((Button) button).getText() == Main.currFood) {
+					// Alert dialog that will display if an error is thrown in the main body
+					Alert dialog = new Alert(Alert.AlertType.ERROR);
+					dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
+							+ "If problem persists, please contact system administrator by email: jpientka@wisc.edu");
+					dialog.showAndWait();
+					//Main.primaryStage.hide();
+					return;
+				}
+			}
+			GUI.initFoodItemButton(newFoodButton, itemToFind);
+
+			VBox newVBox = (VBox) Main.mealPane.getContent();
+			newVBox.getChildren().add(newFoodButton);
+			
+			Main.mealPane.setContent(newVBox);
 			
 			event.consume();
 		}
@@ -164,9 +188,9 @@ public class MealEventHandler {
 			} else if(Main.foodInfoScene == 3){
 				Main.createMealField.setText(((Button) event.getSource()).getText());
 			} else {
+				Main.currFood = ((Button) event.getSource()).getText();
 				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
 				FoodItem itemToFind = itemList.get(0);
-				
 				Main.food.setText("Food: " + itemToFind.getName());
 				
 				Label calories = new Label("Calories: " + itemToFind.getNutrientValue("calories"));
