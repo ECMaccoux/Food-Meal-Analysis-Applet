@@ -180,6 +180,19 @@ public class FoodData implements FoodDataADT<FoodItem> {
         }
         return listToReturn;
     }
+    
+    /**
+     * DO JAVADOC STUFF
+     */
+    public FoodItem filterByID(String id) {
+    	for(int i = 0; i < foodItemList.size(); i++) {
+    		if(foodItemList.get(i).getID().equals(id)) {
+    			return foodItemList.get(i);
+    		}
+    	}
+    	
+    	return null;
+    }
 
     /**
      * Gets all the food items that fulfill ALL the provided rules

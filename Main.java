@@ -51,7 +51,8 @@ public class Main extends Application {
 	//public static VBox mealInfoScreen;
 	//public static VBox mealList;
 	public static ScrollPane mealPane;
-	public static String currFood;
+	public static String currID;
+	
 	// STUFF THAT ERIC ADDED
 	
 	public static ToggleGroup ruleTypeGroup = new ToggleGroup();
@@ -65,6 +66,13 @@ public class Main extends Application {
 	public static FoodData queryFoodDataList = new FoodData();
 	public static VBox foodInfoScreen = new VBox();
 	public static Button addToMealButton = new Button("Add to Meal");
+	public static TextField addFoodName = new TextField();
+	public static TextField addFoodCals = new TextField();
+	public static TextField addFoodFats = new TextField();
+	public static TextField addFoodCarbs = new TextField();
+	public static TextField addFoodFibers = new TextField();
+	public static TextField addFoodProteins = new TextField();
+	public static FoodData mealFoodDataList = new FoodData();
 
 	/**
 	 * Starts GUI
@@ -97,7 +105,7 @@ public class Main extends Application {
 			Button options = new Button("Options");
 			Button query = new Button("Query");
 			Button removeMealButton = new Button("Remove from Meal");
-			Button addFoodButton = new Button("Add");
+			Button addFoodScreenButton = new Button("Add");
 			Button addFoodSubmit = new Button("Submit");
 			Button analyzeMeal = new Button("Analyze Meal");
 			Button saveMeal = new Button("Save Meal");
@@ -172,12 +180,6 @@ public class Main extends Application {
 			
 			// creates all text fields
 			TextField loadFoodField = new TextField();
-			TextField addFoodName = new TextField();
-			TextField addFoodCals = new TextField();
-			TextField addFoodFats = new TextField();
-			TextField addFoodCarbs = new TextField();
-			TextField addFoodFibers = new TextField();
-			TextField addFoodProteins = new TextField();
 			
 			// initializes Radio Buttons
 			GUI.initRadio(badgerRed);
@@ -259,7 +261,7 @@ public class Main extends Application {
 			// initializes left pane (contains foodListTitle and foodList)
 			VBox leftPane = new VBox();
 			leftPane.setPrefWidth(215);
-			leftPane.getChildren().addAll(new HBox(foodListTitle, addFoodButton), foodPane);
+			leftPane.getChildren().addAll(new HBox(foodListTitle, addFoodScreenButton), foodPane);
 			
 			// initializes right pane (contains mealList and mealInfo)
 			VBox rightPane = new VBox();
@@ -335,7 +337,7 @@ public class Main extends Application {
 			off.setOnAction(MealEventHandler.colorHandler);
 			purple.setOnAction(MealEventHandler.colorHandler);
 			blue.setOnAction(MealEventHandler.colorHandler);
-			addFoodButton.setOnAction(MealEventHandler.addFoodScreenHandler);
+			addFoodScreenButton.setOnAction(MealEventHandler.addFoodScreenHandler);
 			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
 			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
 			
@@ -355,6 +357,8 @@ public class Main extends Application {
 			
 			foodInfoScreen.setAlignment(Pos.TOP_CENTER);
 			addToMealButton.setOnAction(MealEventHandler.addToMealHandler);
+			
+			addFoodSubmit.setOnAction(MealEventHandler.addFoodSubmitHandler);
 			
 			// END STUFF THAT ERIC HAS ADDED
 			

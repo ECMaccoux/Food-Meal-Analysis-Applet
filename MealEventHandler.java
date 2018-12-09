@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -145,18 +146,12 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> addToMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			Button newFoodButton = new Button(Main.currFood);
 			
-			List<FoodItem> itemList = Main.foodDataList.filterByName(Main.currFood);
+			FoodItem itemToAdd = Main.foodDataList.filterByID(Main.currID);
+			Main.mealFoodDataList.addFoodItem(itemToAdd);
 			
-			FoodItem itemToFind = itemList.get(0);
-			GUI.initFoodItemButton(newFoodButton, itemToFind);
-			for(Node button : ((VBox) Main.mealPane.getContent()).getChildren()) {
-				if(((Button) button).getText() == Main.currFood) {
-					//oof
-				}
-			}
-			GUI.initFoodItemButton(newFoodButton, itemToFind);
+			Button newFoodButton = new Button(itemToAdd.getName());
+			GUI.initFoodItemButton(newFoodButton, itemToAdd);
 
 			VBox newVBox = (VBox) Main.mealPane.getContent();
 			newVBox.getChildren().add(newFoodButton);
@@ -182,11 +177,12 @@ public class MealEventHandler {
 			} else if(Main.foodInfoScene == 3){
 				Main.createMealField.setText(((Button) event.getSource()).getText());
 			} else {
-				Main.currFood = ((Button) event.getSource()).getText();
-				List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
-				FoodItem itemToFind = itemList.get(0);
-				Main.food.setText("Food: " + itemToFind.getName());
+				Main.currID = ((Button) event.getSource()).getId();
+				//List<FoodItem> itemList = Main.foodDataList.filterByName(((Button) event.getSource()).getText());
+				//FoodItem itemToFind = itemList.get(0);
+				FoodItem itemToFind = Main.foodDataList.filterByID(Main.currID);
 				
+				Main.food.setText("Food: " + itemToFind.getName());
 				Label calories = new Label("Calories: " + itemToFind.getNutrientValue("calories"));
 				Label fat = new Label("Fat (Grams): " + itemToFind.getNutrientValue("fat"));
 				Label carbohydrates = new Label("Carbohydrates (Grams): " + itemToFind.getNutrientValue("carbohydrate"));
@@ -215,7 +211,6 @@ public class MealEventHandler {
 	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
-			String[] nameTokens = Main.food.getText().split(" ");
 			
 		}
 	};
@@ -474,6 +469,32 @@ public class MealEventHandler {
 			Main.ruleList.getChildren().remove(((Button) event.getSource()).getParent());
 			
 			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> removeMealItemHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			FoodItem itemToRemove = Main.mealFoodDataList.filterByID(((Button) event.getSource()).getId());
+		}
+	};
+	
+	static EventHandler<ActionEvent> addFoodSubmitHandler = new EventHandler<ActionEvent> () {
+		@Override
+		public void handle(ActionEvent event) {
+			String uniqueID = UUID.randomUUID().toString();
+			
+			FoodItem itemToAdd = new FoodItem(uniqueID, Main.addFoodName.getText());
+			itemToAdd.addNutrient("calories", Double.parseDouble(Main.addFoodCals.getText()));
+			itemToAdd.addNutrient("fat", Double.parseDouble(Main.addFoodFats.getText()));
+			itemToAdd.addNutrient("carbohydrate", Double.parseDouble(Main.addFoodCarbs.getText()));
+			itemToAdd.addNutrient("fiber", Double.parseDouble(Main.addFoodFibers.getText()));
+			itemToAdd.addNutrient("protein", Double.parseDouble(Main.addFoodProteins.getText()));
+			
+			Main.foodDataList.addFoodItem(itemToAdd);
+			Button newItem = new Button(itemToAdd.getName());
+    		GUI.initFoodItemButton(newItem, itemToAdd);
+    		Main.foodList.getChildren().add(newItem);
 		}
 	};
 }

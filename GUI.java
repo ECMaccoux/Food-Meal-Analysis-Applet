@@ -52,7 +52,7 @@ public class GUI {
 		Main.food = new Label();
 		Main.foodDataList = new FoodData();
 		Main.foodList = new VBox();
-		Main.currFood = "";
+		Main.currID = "";
 		Main.addFoodScreen = new VBox();
 		//Main.mealInfoScreen = new VBox();
 		Main.ruleScrollPane = new ScrollPane();
@@ -140,6 +140,7 @@ public class GUI {
 	public static void initFoodItemButton(Button button, FoodItem item) {
 		
 		// sets text color, action, and border for button
+		button.setId(item.getID());
 		button.setTextFill(Color.BLACK);
 		button.setOnAction(MealEventHandler.scrollFoodHandler);
 		button.setBorder(null);
