@@ -51,7 +51,16 @@ public class Main extends Application {
 	//public static VBox mealInfoScreen;
 	//public static VBox mealList;
 	public static ScrollPane mealPane;
-	public static String currFood;
+	public static FoodItem currFood;
+	// creates all text fields
+	public static TextField loadFoodField;
+	public static TextField addFoodName;
+	public static TextField addFoodCals;
+	public static TextField addFoodID;
+	public static TextField addFoodFats;
+	public static TextField addFoodCarbs;
+	public static TextField addFoodFibers;
+	public static TextField addFoodProteins;
 	// STUFF THAT ERIC ADDED
 	
 	public static ToggleGroup ruleTypeGroup = new ToggleGroup();
@@ -102,6 +111,7 @@ public class Main extends Application {
 			Button analyzeMeal = new Button("Analyze Meal");
 			Button saveMeal = new Button("Save Meal");
 			Button applyQuery = new Button("Apply Query");
+			Button clearMeal = new Button("Clear");
 			
 			// Initializes all buttons
 			GUI.initButton(loadFood);
@@ -138,10 +148,11 @@ public class Main extends Application {
 			Label calories = new Label("Calories: ");
 			Label fat = new Label("Fat (Grams): ");
 			Label carbohydrates = new Label("Carbohydrates (Grams): ");
+			Label foodID = new Label("ID: ");
 			Label fiber = new Label("Fiber (Grams): ");
 			Label protein = new Label("Protein (Grams): ");
 			Label foodListTitle = new Label("Foods                             ");
-			Label mealListTitle = new Label("Meal                    ");
+			Label mealListTitle = new Label("Meal           ");
 			Label queryLabel = new Label("Filter Query:");
 			Label loadFileLabel = new Label("Load File");
 			Label addFoodLabel = new Label("Add New Food");
@@ -169,15 +180,6 @@ public class Main extends Application {
 			
 			// creates all toggle groups
 			ToggleGroup colorGroup = new ToggleGroup();
-			
-			// creates all text fields
-			TextField loadFoodField = new TextField();
-			TextField addFoodName = new TextField();
-			TextField addFoodCals = new TextField();
-			TextField addFoodFats = new TextField();
-			TextField addFoodCarbs = new TextField();
-			TextField addFoodFibers = new TextField();
-			TextField addFoodProteins = new TextField();
 			
 			// initializes Radio Buttons
 			GUI.initRadio(badgerRed);
@@ -214,6 +216,7 @@ public class Main extends Application {
 			GUI.initLabel(addFoodTitleLabel, 1);
 			//GUI.initLabel(mealNameLabel, 0);
 			GUI.initLabel(nameQueryLabel, 0);
+			GUI.initLabel(foodID, 0);
 			
 			// sets up food info screen
 			food.setFont(Font.font("Arial", 24));
@@ -264,7 +267,7 @@ public class Main extends Application {
 			// initializes right pane (contains mealList and mealInfo)
 			VBox rightPane = new VBox();
 			rightPane.setPrefWidth(215);
-			rightPane.getChildren().addAll(new HBox(mealListTitle, analyzeMeal), mealPane);
+			rightPane.getChildren().addAll(new HBox(mealListTitle, analyzeMeal, clearMeal), mealPane);
 			
 			// Adds radiobuttons to Toggle groups
 			badgerRed.setToggleGroup(colorGroup);
@@ -311,7 +314,7 @@ public class Main extends Application {
 			queryBox.getChildren().addAll(queryLabel, nameQueryBox, ruleBox, ruleScrollPane, applyQuery);
 			
 			// adds necessary labels/text fields to addFoodScreen
-			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName), 
+			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName), new HBox(foodID, addFoodID),
 					new HBox(calories, addFoodCals), new HBox(fat, addFoodFats), new HBox(carbohydrates, addFoodCarbs), 
 					new HBox(fiber, addFoodFibers), new HBox(protein, addFoodProteins), addFoodSubmit);
 			
@@ -338,6 +341,7 @@ public class Main extends Application {
 			addFoodButton.setOnAction(MealEventHandler.addFoodScreenHandler);
 			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
 			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
+			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
 			
 			// THIS IS THE STUFF THAT ERIC HAS ADDED
 			
