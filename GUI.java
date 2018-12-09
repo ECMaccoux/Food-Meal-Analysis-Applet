@@ -52,20 +52,14 @@ public class GUI {
 		Main.food = new Label();
 		Main.foodDataList = new FoodData();
 		Main.foodList = new VBox();
-<<<<<<< HEAD
 		Main.currID = "";
-=======
-		Main.currFood = new FoodItem("","");
->>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 		Main.addFoodScreen = new VBox();
-		Main.loadFoodField = new TextField();
 		Main.addFoodName = new TextField();
 		Main.addFoodCals = new TextField();
 		Main.addFoodFats = new TextField();
 		Main.addFoodCarbs = new TextField();
 		Main.addFoodFibers = new TextField();
 		Main.addFoodProteins = new TextField();
-		Main.addFoodID = new TextField();
 		//Main.mealInfoScreen = new VBox();
 		Main.ruleScrollPane = new ScrollPane();
 		Main.mealPane = new ScrollPane();

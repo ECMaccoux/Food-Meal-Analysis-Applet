@@ -51,21 +51,9 @@ public class Main extends Application {
 	//public static VBox mealInfoScreen;
 	//public static VBox mealList;
 	public static ScrollPane mealPane;
-<<<<<<< HEAD
 	public static String currID;
 	
-=======
 	public static FoodItem currFood;
-	// creates all text fields
-	public static TextField loadFoodField;
-	public static TextField addFoodName;
-	public static TextField addFoodCals;
-	public static TextField addFoodID;
-	public static TextField addFoodFats;
-	public static TextField addFoodCarbs;
-	public static TextField addFoodFibers;
-	public static TextField addFoodProteins;
->>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 	// STUFF THAT ERIC ADDED
 	
 	public static ToggleGroup ruleTypeGroup = new ToggleGroup();
@@ -193,12 +181,8 @@ public class Main extends Application {
 			// creates all toggle groups
 			ToggleGroup colorGroup = new ToggleGroup();
 			
-<<<<<<< HEAD
 			// creates all text fields
 			TextField loadFoodField = new TextField();
-			
-=======
->>>>>>> 0c13c80e40b0f243e9ddf85f52a7195e81ca0148
 			// initializes Radio Buttons
 			GUI.initRadio(badgerRed);
 			GUI.initRadio(green);
@@ -332,7 +316,10 @@ public class Main extends Application {
 			queryBox.getChildren().addAll(queryLabel, nameQueryBox, ruleBox, ruleScrollPane, applyQuery);
 			
 			// adds necessary labels/text fields to addFoodScreen
-			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName), new HBox(foodID, addFoodID),
+//			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName), new HBox(foodID, addFoodID),
+//					new HBox(calories, addFoodCals), new HBox(fat, addFoodFats), new HBox(carbohydrates, addFoodCarbs), 
+//					new HBox(fiber, addFoodFibers), new HBox(protein, addFoodProteins), addFoodSubmit);
+			addFoodScreen.getChildren().addAll(addFoodTitleLabel, new HBox(newFoodName, addFoodName),
 					new HBox(calories, addFoodCals), new HBox(fat, addFoodFats), new HBox(carbohydrates, addFoodCarbs), 
 					new HBox(fiber, addFoodFibers), new HBox(protein, addFoodProteins), addFoodSubmit);
 			
@@ -379,7 +366,7 @@ public class Main extends Application {
 			foodInfoScreen.setAlignment(Pos.TOP_CENTER);
 			addToMealButton.setOnAction(MealEventHandler.addToMealHandler);
 			
-			addFoodSubmit.setOnAction(MealEventHandler.addFoodSubmitHandler);
+			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
 			
 			// END STUFF THAT ERIC HAS ADDED
 			
