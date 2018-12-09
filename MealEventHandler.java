@@ -153,13 +153,7 @@ public class MealEventHandler {
 			GUI.initFoodItemButton(newFoodButton, itemToFind);
 			for(Node button : ((VBox) Main.mealPane.getContent()).getChildren()) {
 				if(((Button) button).getText() == Main.currFood) {
-					// Alert dialog that will display if an error is thrown in the main body
-					Alert dialog = new Alert(Alert.AlertType.ERROR);
-					dialog.setHeaderText("An internal error occured, please re-attempt or re-load program.\n"
-							+ "If problem persists, please contact system administrator by email: jpientka@wisc.edu");
-					dialog.showAndWait();
-					//Main.primaryStage.hide();
-					return;
+					//oof
 				}
 			}
 			GUI.initFoodItemButton(newFoodButton, itemToFind);
