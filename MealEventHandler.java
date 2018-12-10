@@ -2,8 +2,13 @@ package application;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -34,13 +39,27 @@ public class MealEventHandler {
 	// 						5 = query screen
 	//						6 = add FoodItem
 	
+	static VBox alphabetize(VBox boxToAlphabetize) {
+		Object[] array = boxToAlphabetize.getChildren().toArray();
+    	Arrays.sort(array);
+    	
+    	VBox newFoodList = new VBox();
+    	
+    	for(int i = 0; i < array.length; i++) {
+    		newFoodList.getChildren().add((Node) array[i]);
+    	}
+    	
+    	return newFoodList;
+	}
+	
 	/**
 	 * Handler that will be used by the load button.
 	 * 
 	 * Pops up a browser that will search through the hard drive.
 	 */
 	static EventHandler<ActionEvent> loadFoodHandler = new EventHandler<ActionEvent>() {
-	    @Override
+	    @SuppressWarnings("unchecked")
+		@Override
 	    public void handle(ActionEvent event) {
 	    	FileChooser chooser = new FileChooser();
 	    	chooser.setTitle("Open Food List File");
@@ -66,7 +85,7 @@ public class MealEventHandler {
 					if(!error) {
 			    		MealButton newItem = new MealButton(list.get(i).getName(), list.get(i));
 			    		GUI.initFoodItemButton(newItem, list.get(i));
-			    		Main.foodList.getChildren().add(newItem);
+			    		((VBox) Main.foodPane.getContent()).getChildren().add(newItem);
 					}
 		    	}
 				if(errors > 0) {
@@ -82,6 +101,8 @@ public class MealEventHandler {
 				dialog.showAndWait();
 				e.printStackTrace();
 	    	}
+	    	
+	    	Main.foodPane.setContent(MealEventHandler.alphabetize((VBox) Main.foodPane.getContent()));
 	    	
 	        event.consume();
 	    }
@@ -173,7 +194,7 @@ public class MealEventHandler {
 			VBox newVBox = (VBox) Main.mealPane.getContent();
 			newVBox.getChildren().add(newFoodButton);
 			
-			Main.mealPane.setContent(newVBox);
+			Main.mealPane.setContent(MealEventHandler.alphabetize(newVBox));
 			
 			event.consume();
 		}
@@ -373,12 +394,12 @@ public class MealEventHandler {
 					
 					if(inAllLists) {
 						Main.queryFoodDataList.addFoodItem(foodRuleResults.get(i));
-						Button newItem = new Button(foodRuleResults.get(i).getName());
+						MealButton newItem = new MealButton(foodRuleResults.get(i).getName(), foodRuleResults.get(i));
 			    		GUI.initFoodItemButton(newItem, foodRuleResults.get(i));
 			    		Main.queryFoodList.getChildren().add(newItem);
 					}
 				}
-			} else {
+			} else if (foodNameResults.size() > 0) {
 				for(int i = 0; i < foodNameResults.get(0).size(); i++) {
 					boolean inAllLists = true;
 					
@@ -390,14 +411,14 @@ public class MealEventHandler {
 					
 					if(inAllLists) {
 						Main.queryFoodDataList.addFoodItem(foodNameResults.get(0).get(i));
-						Button newItem = new Button(foodNameResults.get(0).get(i).getName());
+						Button newItem = new MealButton(foodNameResults.get(0).get(i).getName(), foodNameResults.get(0).get(i));
 			    		GUI.initFoodItemButton(newItem, foodNameResults.get(0).get(i));
 			    		Main.queryFoodList.getChildren().add(newItem);
 					}
 				}
 			}
 			
-			Main.foodPane.setContent(Main.queryFoodList);
+			Main.foodPane.setContent(MealEventHandler.alphabetize(Main.queryFoodList));
 			
 			event.consume();
 		}
@@ -484,33 +505,6 @@ public class MealEventHandler {
 			Main.ruleList.getChildren().remove(((Button) event.getSource()).getParent());
 			
 			event.consume();
-		}
-	};
-	
-
-	static EventHandler<ActionEvent> removeMealItemHandler = new EventHandler<ActionEvent> () {
-		@Override
-		public void handle(ActionEvent event) {
-			FoodItem itemToRemove = Main.mealFoodDataList.filterByID(((Button) event.getSource()).getId());
-		}
-	};
-	
-	static EventHandler<ActionEvent> addFoodSubmitHandler = new EventHandler<ActionEvent> () {
-		@Override
-		public void handle(ActionEvent event) {
-			String uniqueID = UUID.randomUUID().toString();
-			
-			FoodItem itemToAdd = new FoodItem(uniqueID, Main.addFoodName.getText());
-			itemToAdd.addNutrient("calories", Double.parseDouble(Main.addFoodCals.getText()));
-			itemToAdd.addNutrient("fat", Double.parseDouble(Main.addFoodFats.getText()));
-			itemToAdd.addNutrient("carbohydrate", Double.parseDouble(Main.addFoodCarbs.getText()));
-			itemToAdd.addNutrient("fiber", Double.parseDouble(Main.addFoodFibers.getText()));
-			itemToAdd.addNutrient("protein", Double.parseDouble(Main.addFoodProteins.getText()));
-			
-			Main.foodDataList.addFoodItem(itemToAdd);
-			Button newItem = new Button(itemToAdd.getName());
-    		GUI.initFoodItemButton(newItem, itemToAdd);
-    		Main.foodList.getChildren().add(newItem);
 		}
 	};
 
@@ -633,7 +627,8 @@ public class MealEventHandler {
 			Main.foodDataList.addFoodItem(newFoodItem);
     		MealButton newItem = new MealButton(Main.addFoodName.getText(), newFoodItem);
     		GUI.initFoodItemButton(newItem, newFoodItem);
-    		Main.foodList.getChildren().add(newItem);
+    		((VBox) Main.foodPane.getContent()).getChildren().add(newItem);
+    		Main.foodPane.setContent(MealEventHandler.alphabetize((VBox) Main.foodPane.getContent()));
 			
 			event.consume();
 		}
