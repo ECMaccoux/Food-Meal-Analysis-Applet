@@ -305,7 +305,7 @@ public class Main extends Application {
 			loadFoodBox.getChildren().addAll(loadFileLabel, loadFoodField);
 			
 			// adds label/field to AnalyzeMealBox
-			optionsBox.getChildren().addAll(optionsLabel, optionsField, colorBox);
+			optionsBox.getChildren().addAll(optionsLabel, colorBox);
 			
 			// adds label/field/button to CreateMealFieldBox
 			createMealFieldBox.getChildren().addAll(addFoodLabel, createMealField, addToMealButton);
