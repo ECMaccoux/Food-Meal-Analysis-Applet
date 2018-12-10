@@ -87,7 +87,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
 			while(reader.hasNextLine() && !finishedReading) {
 				String[] tokens = reader.nextLine().split(",");
 				
-				if(tokens == null || tokens.length == 0 || tokens[0] == null || tokens[0] == "") {
+				if(tokens == null || tokens.length == 0 || tokens[0] == null || tokens[0].equals("")) {
 					finishedReading = true;
 				}
 				else {
@@ -98,7 +98,13 @@ public class FoodData implements FoodDataADT<FoodItem> {
 						item.addNutrient(tokens[i].toLowerCase(), Double.parseDouble(tokens[i + 1]));
 					}
 					
-					addFoodItem(item);
+					HashMap<String, Double> inputtedNutrients = item.getNutrients();
+					
+					if(inputtedNutrients.containsKey("calories") && inputtedNutrients.containsKey("fat")
+							&& inputtedNutrients.containsKey("carbohydrate") && inputtedNutrients.containsKey("fiber")
+							&& inputtedNutrients.containsKey("protein")) {
+						addFoodItem(item);
+					}
 				}
 			}
 			reader.close();
