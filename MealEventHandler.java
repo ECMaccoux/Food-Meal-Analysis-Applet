@@ -74,7 +74,7 @@ public class MealEventHandler {
 		    	List<FoodItem> list = Main.foodDataList.getAllFoodItems();
 		    	
 		    	for(int i = 0; i < list.size(); i++) {
-					for(Node button : ((VBox) Main.foodPane.getContent()).getChildren()) {
+					for(Node button : Main.foodList.getChildren()) {
 						if(((MealButton) button).getFoodItem().getID().equals(list.get(i).getID())) {
 							errors += 1;
 							error = true;
@@ -85,7 +85,7 @@ public class MealEventHandler {
 					if(!error) {
 			    		MealButton newItem = new MealButton(list.get(i).getName(), list.get(i));
 			    		GUI.initFoodItemButton(newItem, list.get(i));
-			    		((VBox) Main.foodPane.getContent()).getChildren().add(newItem);
+			    		Main.foodList.getChildren().add(newItem);
 					}
 		    	}
 				if(errors > 0) {
@@ -102,7 +102,8 @@ public class MealEventHandler {
 				e.printStackTrace();
 	    	}
 	    	
-	    	Main.foodPane.setContent(MealEventHandler.alphabetize((VBox) Main.foodPane.getContent()));
+	    	Main.foodList = MealEventHandler.alphabetize(Main.foodList);
+	    	Main.foodPane.setContent(Main.foodList);
 	    	
 	        event.consume();
 	    }
@@ -244,13 +245,6 @@ public class MealEventHandler {
 		}
 	};
 	
-	static EventHandler<ActionEvent> scrollMealHandler = new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent event) {
-			
-		}
-	};
-	
 	/**
 	 * Handler for the query button.
 	 * 
@@ -325,23 +319,6 @@ public class MealEventHandler {
 	};
 	
 	/**
-	 * Handler for save meal buttons.
-	 * 
-	 * Opens up the save meal buttons.
-	 */
-	static EventHandler<ActionEvent> saveMealHandler = new EventHandler<ActionEvent>() {
-		
-		@Override
-		public void handle(ActionEvent event) {
-			Button newMealButton = new Button(Main.optionsField.getText());
-			//TODO: add FoodData
-			GUI.initMealItemButton(newMealButton, new FoodData());
-			//Main.mealList.getChildren().add(newMealButton);
-			event.consume();
-		}
-	};
-	
-	/**
 	 * Handler for apply Query button.
 	 * 
 	 * applies the Query.
@@ -354,8 +331,6 @@ public class MealEventHandler {
 			Main.queryFoodList.getChildren().clear();
 			
 			if(Main.ruleList.getChildren().size() == 0) {
-				Main.foodPane.setContent(Main.foodList);
-				
 				event.consume();
 				return;
 			}
@@ -420,7 +395,22 @@ public class MealEventHandler {
 			
 			Main.foodPane.setContent(MealEventHandler.alphabetize(Main.queryFoodList));
 			
+			if(Main.leftPane.getChildren().size() == 2) {
+				Button resetButton = new Button("Reset");
+				resetButton.setOnAction(resetQueryHandler);
+				Main.leftPane.getChildren().add(resetButton);
+			}
+			
 			event.consume();
+		}
+	};
+	
+	static EventHandler<ActionEvent> resetQueryHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			Main.leftPane.getChildren().remove(2);
+			
+			Main.foodPane.setContent(Main.foodList);
 		}
 	};
 	
@@ -640,7 +630,8 @@ public class MealEventHandler {
 			if(Main.foodInfoScene == 1) {
 				Main.root.setCenter(Main.foodInfo);
 				Main.foodInfoScene = 0;
-			}else {
+				return;
+			} else {
 				Main.foodInfoScene = 1;
 			}
 			

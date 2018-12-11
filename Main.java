@@ -75,6 +75,8 @@ public class Main extends Application {
 	public static TextField addFoodProteins = new TextField();
 	public static FoodData mealFoodDataList = new FoodData();
 	public static VBox analyzeMealScreen = new VBox();
+	public static HBox foodPaneTitleBox = new HBox();
+	public static VBox leftPane = new VBox();
 
 	/**
 	 * Starts GUI
@@ -263,9 +265,10 @@ public class Main extends Application {
 			GUI.initScroll(foodPane);
 			
 			// initializes left pane (contains foodListTitle and foodList)
-			VBox leftPane = new VBox();
+			
 			leftPane.setPrefWidth(215);
-			leftPane.getChildren().addAll(new HBox(foodListTitle, addFoodScreenButton), foodPane);
+			foodPaneTitleBox.getChildren().addAll(foodListTitle, addFoodScreenButton);
+			leftPane.getChildren().addAll(foodPaneTitleBox, foodPane);
 			
 			// initializes right pane (contains mealList and mealInfo)
 			VBox rightPane = new VBox();
@@ -345,7 +348,7 @@ public class Main extends Application {
 			purple.setOnAction(MealEventHandler.colorHandler);
 			blue.setOnAction(MealEventHandler.colorHandler);
 			addFoodScreenButton.setOnAction(MealEventHandler.addFoodScreenHandler);
-			saveMeal.setOnAction(MealEventHandler.saveMealHandler);
+			//saveMeal.setOnAction(MealEventHandler.saveMealHandler);
 			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
 			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
 			clearMeal.setOnAction(MealEventHandler.clearMealHandler);
