@@ -96,7 +96,7 @@ public class Main extends Application {
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			// creates the stage
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(true);
 			primaryStage.setMaxWidth(1280);
 			primaryStage.setMaxHeight(640);
 			primaryStage.setScene(scene);
@@ -116,6 +116,9 @@ public class Main extends Application {
 			Button applyQuery = new Button("Apply Query");
 			Button clearMeal = new Button("Clear");
 			
+			// TODO: implement this
+			Button helpButton = new Button("Help");
+			
 			// Initializes all buttons
 			GUI.initButton(loadFood);
 			GUI.initButton(saveFood);
@@ -127,6 +130,7 @@ public class Main extends Application {
 			GUI.initButton(addFoodSubmit);
 			GUI.initButton(saveMeal);
 			GUI.initButton(applyQuery);
+			GUI.initButton(helpButton);
 			
 			// initializes center area box
 			//addToMealButton.setPrefWidth(45);
@@ -143,7 +147,7 @@ public class Main extends Application {
 			VBox nameRuleBox = new VBox();
 			VBox ruleRuleBox = new VBox();
 			
-			bottomBox.getChildren().addAll(loadFood, saveFood/*, createMeal*/, query, options);
+			bottomBox.getChildren().addAll(loadFood, saveFood/*, createMeal*/, query, options, helpButton);
 			
 			// creates all labels
 			Label newFoodName = new Label("Name: ");
@@ -251,6 +255,7 @@ public class Main extends Application {
 			//HBox.setMargin(createMeal, new Insets(14));
 			HBox.setMargin(options, new Insets(14));
 			HBox.setMargin(query, new Insets(14));
+			HBox.setMargin(helpButton, new Insets(14));
 			HBox createMealFieldBox = new HBox();
 			
 			// creates a scrolling pane that contains the list of food
