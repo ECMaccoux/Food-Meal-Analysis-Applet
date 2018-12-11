@@ -86,7 +86,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
      */
     @Override
     public List<V> rangeSearch(K key, String comparator) {
-        if (!comparator.contentEquals(">=") && !comparator.contentEquals("==") && !comparator.contentEquals("<=")) {
+        if (!comparator.equals(">=") && !comparator.equals("==") && !comparator.equals("<=")) {
         	return new ArrayList<V>();
         } else if (key == null) {
         	return new ArrayList<V>();
@@ -299,7 +299,7 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         List<V> rangeSearch(K key, String comparator) {
         	int location;
         	
-        	if(comparator.contentEquals("<=")) {
+        	if(comparator.equals("<=")) {
         		location = 0;
         	} else {
         		location = Collections.binarySearch(keys, key);
@@ -418,50 +418,51 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
          * @see BPTree.Node#rangeSearch(Comparable, String)
          */
         List<V> rangeSearch(K key, String comparator) {
-        	return rangeSearchHelper(this, key, comparator);
-        }
-        
-        /**
-         * 
-         * @param node
-         * @param key
-         * @param comparator
-         * @return
-         */
-        List<V> rangeSearchHelper(LeafNode node, K key, String comparator) {
-        	List<V> listToReturn = new ArrayList<V>();
+        	//return rangeSearchHelper(this, key, comparator);
         	
-        	if(comparator.contentEquals("==")) {
-            	for(int i = 0; i < node.keys.size(); i++) {
-            		if(node.keys.get(i).equals(key)) {
-                		listToReturn.add(node.values.get(i));
+        	List<V> listToReturn = new ArrayList<V>();
+        	LeafNode nodeBeingParsed = this;
+        	
+        	if(comparator.equals("==")) {
+        		while(nodeBeingParsed != null) {
+        			for(int i = 0; i < nodeBeingParsed.keys.size(); i++) {
+                		if(nodeBeingParsed.keys.get(i).equals(key)) {
+                    		listToReturn.add(nodeBeingParsed.values.get(i));
+                    	}
                 	}
-            	}
-            	
-            	if(node.next != null && key.equals(node.next.getFirstLeafKey())) {
-        			listToReturn.addAll(rangeSearchHelper(node.next, key, comparator));
+        			
+        			if(nodeBeingParsed.next != null && key.equals(nodeBeingParsed.next.getFirstLeafKey())) {
+        				nodeBeingParsed = nodeBeingParsed.next;
+        			} else {
+        				break;
+        			}
+        			
         		}
-            } else if (comparator.contentEquals(">=")) {
-            	for(int i = 0; i < node.keys.size(); i++) {
-            		if(key.compareTo(node.keys.get(i)) <= 0) {
-                		listToReturn.add(node.values.get(i));
+        	} else if (comparator.equals(">=")) {
+        		while(nodeBeingParsed != null) {
+        			for(int i = 0; i < nodeBeingParsed.keys.size(); i++) {
+                		if(key.compareTo(nodeBeingParsed.keys.get(i)) <= 0) {
+                    		listToReturn.add(nodeBeingParsed.values.get(i));
+                    	}
                 	}
-            	}
-            	
-            	if(node.next != null) {
-        			listToReturn.addAll(rangeSearchHelper(node.next, key, comparator));
+        			
+        			nodeBeingParsed = nodeBeingParsed.next;
         		}
-            } else if (comparator.contentEquals("<=")) {
-            	for(int i = 0; i < node.keys.size(); i++) {
-            		if(key.compareTo(node.keys.get(i)) >= 0) {
-                		listToReturn.add(0, node.values.get(i));
+        	} else if (comparator.equals("<=")) {
+        		while(nodeBeingParsed != null) {
+        			for(int i = 0; i < nodeBeingParsed.keys.size(); i++) {
+                		if(key.compareTo(nodeBeingParsed.keys.get(i)) >= 0) {
+                    		listToReturn.add(nodeBeingParsed.values.get(i));
+                    	}
                 	}
-            	}
-            	
-            	if(node.next != null && key.compareTo(node.next.getFirstLeafKey()) >= 0) {
-            		listToReturn.addAll(rangeSearchHelper(node.next, key, comparator));
-            	}
-            }
+        			
+        			if(nodeBeingParsed.next != null && key.compareTo(nodeBeingParsed.next.getFirstLeafKey()) >= 0) {
+        				nodeBeingParsed = nodeBeingParsed.next;
+        			} else {
+        				break;
+        			}
+        		}
+        	}
         	
         	return listToReturn;
         }
@@ -480,36 +481,6 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         // create empty BPTree with branching factor of 3
         BPTree<Double, Double> bpTree = new BPTree<>(3);
         
-        /*bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(10.0, 10.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(7.0, 7.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(6.0, 6.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(8.0, 8.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        bpTree.insert(5.0, 5.0);
-        System.out.println("\n\nTree structure:\n" + bpTree.toString());
-
-        for(double i = 1.0; i < 10.0; i++) {
-        	bpTree.insert(i, i);
-        	System.out.println("\n\nTree structure:\n" + bpTree.toString());
-        }*/
-        
         // create a pseudo random number generator
         Random rnd1 = new Random();
 
@@ -524,14 +495,13 @@ public class BPTree<K extends Comparable<K>, V> implements BPTreeADT<K, V> {
         // insert, rangeSearch, and toString() working.
         List<Double> list = new ArrayList<>();
         for (int i = 0; i < 20000; i++) {
-        	System.out.println(i);
             Double j = dd[rnd1.nextInt(4)];
             list.add(j);
             bpTree.insert(j, j);
             //System.out.println("\n\nTree structure:\n" + bpTree.toString());
         }
         List<Double> filteredValues = bpTree.rangeSearch(0.2d, ">=");
-        //List<Double> filteredValues = bpTree.rangeSearch(0.2d, "==");
+        //ist<Double> filteredValues = bpTree.rangeSearch(0.2d, "==");
         //List<Double> filteredValues = bpTree.rangeSearch(0.2d, "<=");
         System.out.println("Filtered values: " + filteredValues.toString());
     }
