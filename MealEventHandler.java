@@ -576,7 +576,7 @@ public class MealEventHandler {
 				}
 			} catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Alphanumerics in Calories detected. \n"
+				dialog.setHeaderText("Alphanumerics in Calories or Empty Calories detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
 				dialog.showAndWait();
 				return;
@@ -594,7 +594,7 @@ public class MealEventHandler {
 				}
 			} catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Alphanumerics in Fats detected. \n"
+				dialog.setHeaderText("Alphanumerics in Fats or Empty Fats detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
 				dialog.showAndWait();
 				return;
@@ -612,7 +612,7 @@ public class MealEventHandler {
 				}
 			}catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Alphanumerics in Carbohydrates detected. \n"
+				dialog.setHeaderText("Alphanumerics in Carbohydrates or Empty Carbohydrates detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
 				dialog.showAndWait();
 				return;
@@ -630,7 +630,7 @@ public class MealEventHandler {
 				}
 			}catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Alphanumerics in Fibers detected. \n"
+				dialog.setHeaderText("Alphanumerics in Fibers or Empty Fibers detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
 				dialog.showAndWait();
 				return;
@@ -648,7 +648,7 @@ public class MealEventHandler {
 				}
 			}catch(Exception e) {
 	    		Alert dialog = new Alert(Alert.AlertType.ERROR);
-				dialog.setHeaderText("Alphanumerics in Protiens detected. \n"
+				dialog.setHeaderText("Alphanumerics in Protiens or Empty Protiens detected. \n"
 						+ "If you belive this is an error, please contact the programmer by email: ttu4@wisc.edu");
 				dialog.showAndWait();
 				return;
