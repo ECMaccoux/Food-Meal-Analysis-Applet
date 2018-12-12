@@ -50,7 +50,7 @@ public class GUI {
 	
 	// static items for center pane of program
 		// "Select Food" screen
-			public static Label selectFoodLabel = new Label("Select Food");		// Label that acts as main "Select Food" screen
+			public static Label selectFoodLabel = new Label("Select Food to Add to Meal");		// Label that acts as main "Select Food" screen
 		// "Food Info" screen
 			public static FoodItem currentFood = null;							// FoodItem that is currently being viewed
 		// "Options" screen
