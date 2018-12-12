@@ -357,7 +357,7 @@ public class Main extends Application {
 			applyQuery.setOnAction(MealEventHandler.applyQueryHandler);
 			addFoodSubmit.setOnAction(MealEventHandler.submitNewFoodHandler);
 			clearMeal.setOnAction(MealEventHandler.clearMealHandler);
-			
+			helpButton.setOnAction(MealEventHandler.helpButtonHandler);
 			// THIS IS THE STUFF THAT ERIC HAS ADDED
 			
 			GUI.initButton(queryAddRuleButton);

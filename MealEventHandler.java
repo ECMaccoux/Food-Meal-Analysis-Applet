@@ -497,6 +497,47 @@ public class MealEventHandler {
 			event.consume();
 		}
 	};
+	
+	static EventHandler<ActionEvent> helpButtonHandler = new EventHandler<ActionEvent>() {
+		@Override
+		public void handle(ActionEvent event) {
+			Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+			
+			dialog.setTitle("Food Query and Meal Analysis User Information");
+			
+			// int foodInfoScene: 	0 = default
+			//						2 = options
+			//						3 = create meal (unneeded)
+			//						4 = food info
+			// 						5 = query screen
+			//						6 = add FoodItem
+			
+			dialog.setHeaderText("Use this program to organize your food ingrediants and meals.\n\n"
+					+ "	-On the left is a list of your available foods. Load foods from file with \"Load Foods\" button\n"
+					+ "		at the bottom or create a new food with the \"Add\" button at top of food list. You can \n"
+					+ "		save your current list of foods to a file with the \"Save Foods\" button at the bottom.\n\n"
+					+ "	-On the right is your current meal with the foods you have choosen. The \"Analyze Meal\" button\n"
+					+ "		shows the nutritional values of the meal. The \"Clear All\" button clears the entire meal.\n"
+					+ " ");
+			if(Main.foodInfoScene == 2) {
+				dialog.setContentText("Here on the \"Options\" page, you can choose a color for the dropshadow used\n"
+						+ "in the program or turn it off.");
+			}
+			if(Main.foodInfoScene == 5) {
+				dialog.setContentText("Here on the \"Query\" page, you can filter your list of foods by your specified rules.\n"
+					+ "	-To add a rule pick one nutrient, one comparator value, and type in the number you wish to seach by in the box, then click\n"
+					+ "		\"Add Rule\". Add as many rules as you like and hit the \"Apply Querey\" button to apply the rules.\n"
+					+ "	-To revert the food list back to the original list, hit the \"Reset\" button.");
+			}
+			if(Main.foodInfoScene == 6) {
+				dialog.setContentText("Here on the \"Add\" button you must fill in all text fields the appropriate values.\n"
+						+ "	-Name can be anything.\n"
+						+ "	-Nutrients must contain positive numbers.");
+			}
+
+			dialog.showAndWait();
+		}
+	};
 
 	static EventHandler<ActionEvent> clearMealHandler = new EventHandler<ActionEvent> () {
 		@Override
