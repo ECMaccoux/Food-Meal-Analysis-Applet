@@ -14,12 +14,15 @@ import javafx.scene.control.Alert;
  * This class represents the backend for managing all 
  * the operations associated with FoodItems
  * 
- * @author sapan (sapan@cs.wisc.edu), Tony Tu, Eric Maccoux, Tanner Blanke, Jack Pientka
+ * @author sapan (sapan@cs.wisc.edu), Tanner Blanke, Eric Maccoux, Jack Pientka, Tony Tu
  */
 public class FoodData implements FoodDataADT<FoodItem> {
     
     // List of all the food items.
     private List<FoodItem> foodItemList;
+    
+    // List of all ID numbers currently in foodItemList
+    private List<String> listOfIDs;
 
     // Map of nutrients and their corresponding index
     private HashMap<String, BPTree<Double, FoodItem>> indexes;
@@ -29,6 +32,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
      */
     public FoodData() {
         foodItemList = new ArrayList<FoodItem>();
+        listOfIDs = new ArrayList<String>();
         
         // creates HashMap and populates it with BPTree objects corresponding to each nutrient type
         indexes = new HashMap<String, BPTree<Double, FoodItem>>();
@@ -72,6 +76,7 @@ public class FoodData implements FoodDataADT<FoodItem> {
 			
 			// "resets" foodItemList and indexes
 			foodItemList.clear();
+			listOfIDs.clear();
 	    	indexes.clear();
 	    	indexes.put("calories", new BPTree<Double, FoodItem>(3));
 	        indexes.put("fat", new BPTree<Double, FoodItem>(3));
@@ -90,9 +95,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
 				if(tokens == null || tokens.length == 0 || tokens[0] == null || tokens[0].equals("")) {
 					finishedReading = true;
 				}
-				else {
-					
+				else if (!listOfIDs.contains(tokens[0])) {
 					FoodItem item = new FoodItem(tokens[0], tokens[1]);
+					listOfIDs.add(tokens[0]);
 					
 					for(int i = 2; i < tokens.length - 1; i += 2) {
 						item.addNutrient(tokens[i].toLowerCase(), Double.parseDouble(tokens[i + 1]));
@@ -114,8 +119,9 @@ public class FoodData implements FoodDataADT<FoodItem> {
 					+ "\nPlease try to re-load file\n"
 					+ "If problem persists, please contact system administrator by email: emaccoux@wisc.edu");
 			dialog.showAndWait();
-			e.printStackTrace();
 		}
+		
+		return;
     }
     
     /**
@@ -179,25 +185,13 @@ public class FoodData implements FoodDataADT<FoodItem> {
     public List<FoodItem> filterByName(String substring) {
         List<FoodItem> listToReturn = new ArrayList<FoodItem>();
         
+        // adds all FoodItems in foodItemList that contain substring to listToReturn
         for(int i = 0; i < foodItemList.size(); i++) {
         	if(foodItemList.get(i).getName().toLowerCase().contains(substring.toLowerCase())) {
         		listToReturn.add(foodItemList.get(i));
         	}
         }
         return listToReturn;
-    }
-    
-    /**
-     * DO JAVADOC STUFF
-     */
-    public FoodItem filterByID(String id) {
-    	for(int i = 0; i < foodItemList.size(); i++) {
-    		if(foodItemList.get(i).getID().equals(id)) {
-    			return foodItemList.get(i);
-    		}
-    	}
-    	
-    	return null;
     }
 
     /**
@@ -226,11 +220,13 @@ public class FoodData implements FoodDataADT<FoodItem> {
     	List<FoodItem> listToReturn = new ArrayList<FoodItem>();
     	List<List<FoodItem>> listsOfNutrients = new ArrayList<List<FoodItem>>();
     	
+    	// parses through rules, adds each rule's results to listsOfNutrients
     	for(String rule : rules) {
     		String[] tokens = rule.split(" ");
     		listsOfNutrients.add(indexes.get(tokens[0].toLowerCase()).rangeSearch(Double.parseDouble(tokens[2]), tokens[1]));
     	}
-    	
+    	// if listsOfNutrients is empty, return listToReturn
+    	// otherwise, add each item that's in all of listsOfNutrients to listToReturn, return result
     	if(listsOfNutrients.size() == 0) {
     		return listToReturn;
     	} else {
@@ -253,13 +249,14 @@ public class FoodData implements FoodDataADT<FoodItem> {
     }
 
     /**
-     * Adds a food item to the loaded data.
+     * Adds a single food item to the loaded data.
      * 
      * @param foodItem the food item instance to be added
      */
     @Override
     public void addFoodItem(FoodItem foodItem) {
-        foodItemList.add(foodItem);
+    	foodItemList.add(foodItem);
+    	listOfIDs.add(foodItem.getID());
         
         indexes.get("calories").insert(foodItem.getNutrientValue("calories"), foodItem);
         indexes.get("fat").insert(foodItem.getNutrientValue("fat"), foodItem);
