@@ -1,8 +1,6 @@
 package application;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * This class represents a food item with all its properties.

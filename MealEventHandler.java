@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -779,7 +778,7 @@ public class MealEventHandler {
 			
 			// sets content text relevant to screen being currently viewed
 			if(GUI.currentScreen == 2) {
-				dialog.setContentText("Here on the \"Options\" page, you can choose a color for the dropshadow used\n"
+				dialog.setContentText("Here on the \"Options\" page, you can choose a color for the dropshadow used "
 						+ "in the program or turn it off.");
 			}
 			if(GUI.currentScreen == 3) {
@@ -789,7 +788,7 @@ public class MealEventHandler {
 					+ "	- To revert the food list back to the original list, hit the \"Reset\" button.");
 			}
 			if(GUI.currentScreen == 4) {
-				dialog.setContentText("Here on the \"Add\" button you must fill in all text fields the appropriate values.\n"
+				dialog.setContentText("Here on the \"Add\" button you must fill in all text fields with the appropriate values.\n"
 						+ "	- Name can be anything.\n"
 						+ "	- Nutrients must contain positive numbers.");
 			}
