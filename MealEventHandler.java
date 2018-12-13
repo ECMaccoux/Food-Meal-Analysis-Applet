@@ -773,8 +773,10 @@ public class MealEventHandler {
 					+ "		at the bottom or create a new food with the \"Add\" button at top of food list. You can \n"
 					+ "		save your current list of foods to a file with the \"Save Foods\" button at the bottom.\n\n"
 					+ "	- On the right is your current meal with the foods you have chosen. The \"Analyze Meal\" button\n"
-					+ "		shows the nutritional values of the meal. The \"Clear\" button clears the entire meal.\n"
-					+ " ");
+					+ "		shows the nutritional values of the meal. The \"Clear\" button clears the entire meal.\n\n"
+					+ "	- To add food items to a meal, you must first create a food or load foods from file with either\n"
+					+ "		the \"Load Foods\" button or the \"Add\" button.  Then, click on the food item listed in the\n"
+					+ "		food list and click \"Add to Meal\".  From there, the food should show up in the meal list.");
 			
 			// sets content text relevant to screen being currently viewed
 			if(GUI.currentScreen == 2) {
