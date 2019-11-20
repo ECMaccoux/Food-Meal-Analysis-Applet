@@ -1,11 +1,11 @@
 # Food-Query-and-Meal-Analysis
-Tony Tu 
-- ttu4@wisc.edu 
-- X-Team 4
-
 Eric Maccoux
 - emaccoux@wisc.edu
 - X-Team 10
+
+Tony Tu 
+- ttu4@wisc.edu 
+- X-Team 4
 
 Tanner Blanke
 - tblanke2@wisc.edu
